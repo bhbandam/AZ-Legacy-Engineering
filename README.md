@@ -22,6 +22,8 @@ Running the Woodgrove Bank 3270 Application different transactions
 
    g) WBAA - Add a checking or savings account to a Customer   
 
+   h) WBAC - Add a Customer
+
 
    
 
