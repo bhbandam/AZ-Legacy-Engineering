@@ -1,0 +1,14 @@
+      *****************************************************************
+      *
+      *  FILE         - CUSMASL1
+      *  TYPE         - LOGICAL
+      *  KEY          - K1 - CUSNAM
+      *  DESCRIPTION  - WOODGROVE BANK CUSTOMER MASTER
+      *  WRITTEN FOR  - MICROSOFT CORPORATION
+      *  DATE WRITTEN - 12/09/2005
+      *  WRITTEN BY   - RUSSELL KASBAUM
+      *
+      *****************************************************************
+      *
+     A          R RCUSMAS                   PFILE(CUSMAS)
+     A          K CUSNAM

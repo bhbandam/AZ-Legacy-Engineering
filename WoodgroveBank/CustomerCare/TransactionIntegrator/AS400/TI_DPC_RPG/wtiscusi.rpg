@@ -1,0 +1,185 @@
+      ******************************************************************
+      * File Definitions
+      ******************************************************************
+      *
+     FCusmasl1  uf   e           k DISK
+      *
+      ******************************************************************
+      * Data Definitions
+      ******************************************************************
+     D Name            s             30A
+     D RespCode        S              9S 0 INZ(*ZEROS)
+     D RetCode         S              4  0 INZ(*ZEROS)
+     D EditNum         S              7S 0
+     D msg             S             45A   Dim(3) ctdata
+      *
+     d pRetCode        s              4  0
+     d pCUSTNAME       s             30A
+      *
+      ******************************************************************
+      * User Data
+      ******************************************************************
+      *
+     d pUserData       ds
+     d  pCustomerSSN                  9A
+     d  pCustomerStr                 20a
+     d  pCustomerCity                10A
+     d  pCustomerSta                  4A
+     d  pCustomerZip                 10i 0
+     d  pCustomerPhne                13
+     d  pCustomerPin                  4
+      *
+      ******************************************************************
+      * Metadata Block
+      ******************************************************************
+      *
+     d pMetaDtaErrBlk  ds
+     d  LMetaDataLen                 10i 0
+     d  BStrRunTimeV                 32A
+     d  BStrMethodNA                 32A
+     d  BStrProgID                   40A
+     d  BStrClsID                    40A
+     d  UsMajorVer                    5i 0
+     d  UsMinorVersin                 5i 0
+     d  SReadyToComt                  5i 0
+     d  SWillingToDoM                 5i 0
+     d  SRetrnErrToCl                 5i 0
+     d  SErrorCode                    5i 0
+     d  LHelpContext                 10i 0
+     d  BstrHelpStr                 256A
+      *
+      ******************************************************************
+      * Transaction Detail
+      ******************************************************************
+      *
+     D dsTxnDetails    ds
+     d  TxnSSN                        9A
+     d  TxnAcctNum                   10A
+     d  TxnItemNum                    7p 0
+     d  TxnType                       1A
+     d  TxnDate                      10A
+     d  TxnAmount                    15p 2
+      *
+      ******************************************************************
+      * Constants.
+      ******************************************************************
+      *
+     d cTxnTypIntlBal  c                   CONST('B')
+     d cTxnTypCredit   c                   CONST('C')
+     d cTxnTypDebit    c                   CONST('D')
+     d cTxnTypSvcChg   c                   CONST('S')
+     d cTxnTypOdChg    c                   CONST('O')
+     D cWBCustDbDD     C                   CONST('WBCUSTDB')
+     D cWBAcctDbDD     C                   CONST('WBACCTDB')
+     D cWBTxnDbDD      C                   CONST('WBTXNDBB')
+      *
+     C     *ENTRY        PLIST
+     c                   PARM                    pMetaDtaErrBlk
+     c                   PARM                    pCustName
+     c                   PARM                    pUserData
+      *
+      * Initialize return codes.
+      *
+     C                   Z-ADD     *ZEROS        pRETCODE
+     C                   Z-ADD     *ZEROS        SErrorCode
+     c                   z-add     *zeros        SRETRNERRTOCL
+      *
+      *Use the customer name to access the customer master file
+      *
+     C                   exsr      GetCust
+      *
+     c                   SELECT
+     c                   WHEN      *IN99          = *ON
+     c                   EXSR      UPDCUSTNOTFND
+      *
+     c                   WHEN      *IN99          = *OFF
+     c                   EXSR      UPDCUSTINFO
+      *
+     c                   WHEN      *IN98          = *ON
+     c                   EXSR      UPDCUSTERROR
+      *
+     c                   OTHER
+     c                   EXSR      UPDCUSTERROR
+     c                   ENDSL
+      *
+     C                   eval      *INLR         = *ON
+      *
+      **************************************************************
+      * Get Customer Account Information.
+      **************************************************************
+      *
+     c     GETCUST       begsr
+      *
+     c                   eval      *IN99          = *OFF
+     c     pCustname     setll     cusmasl1
+     c     pCustname     reade     cusmasl1                             9899
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account found load output fields
+      **************************************************************
+      *
+     c     UPDCUSTINFO   begsr
+      *
+     C                   z-add     *ZEROS        pRetCode
+     C                   z-add     *ZEROS        SERRORCODE
+     c                   move      *BLANKS       BSTRHELPSTR
+      *
+     c                   eval      CUSNAM        =pCustName
+     c                   eval      CUSSSN        =pCustomerSSN
+     c                   eval      CUSSTR        =pCustomerStr
+     c                   eval      CUSCTY        =pCustomerCity
+     c                   eval      CUSSTA        =pCustomerSta
+     c                   z-add     pCustomerZip  CUSZIP
+     c                   eval      CUSPHO        =pCustomerPhne
+     c                   eval      CUSPIN        =pCustomerPin
+      *
+     C                   update    rcusmas
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account not open.
+      **************************************************************
+      *
+     c     UPDCUSTNOTOPENbegsr
+      *
+     c                   z-add     1             SRETRNERRTOCL
+     c                   MOVE      msg(1)        BSTRHELPSTR
+     c                   z-add     5001          SERRORCODE
+     c                   z-add     5001          pRETCODE
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account not found.
+      **************************************************************
+      *
+     c     UPDCUSTNOTFND begsr
+      *
+     c                   z-add     1             SRETRNERRTOCL
+     c                   MOVE      msg(2)        BSTRHELPSTR
+     c                   z-add     5002          SERRORCODE
+     c                   z-add     5002          pRETCODE
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer error.
+      **************************************************************
+      *
+     c     UPDCUSTERROR  begsr
+      *
+     c                   z-add     1             SRETRNERRTOCL
+     c                   MOVE      *BLANKS       BSTRHELPSTR
+     c                   MOVE      msg(3)        BSTRHELPSTR
+     c                   z-add     5003          SERRORCODE
+     c                   z-add     5003          pRETCODE
+      *
+     c                   endsr
+**
+Customer file not open                                                 ING
+Customer name not found
+I/O Error Customer file
+

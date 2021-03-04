@@ -1,0 +1,75 @@
+      ******************************************************************
+      * File Definitions
+      ******************************************************************
+      *
+     FActMas    if a e             DISK
+      *
+      ******************************************************************
+      * Data Definitions
+      ******************************************************************
+      *
+     d dsAccts         ds                  QUALIFIED
+     d  dsActNum                     10A
+     d  dsActType                     1A
+     d  dsActName                    10A
+     d  dsAccount                          LIKEDS(dsActInfo)
+      *
+      ******************************************************************
+      * Account information used to redefine the account area.
+      ******************************************************************
+      *
+     d dsActTypCheck   ds                  QUALIFIED
+     d  ActChkOdChg                   5P 2
+     d  ActChkOdLimit                 7P 2
+     d  ActChkOdLnk                  10A
+     d  ActChkLastStm                10a
+     d  ActChkDtlItem                 7P 0
+     d  ActChkBal                    15P 2
+      *
+     d dsActTypSave    ds                   QUALIFIED
+     d  ActSavIntRte                  3p 2
+     d  ActSavSrvChg                  5p 2
+     d  ActSavLstStm                 10a
+     d  ActSavDtlItms                 7p 0
+     d  ActSavBal                    15p 2
+     d* ActSavFil                    12A
+      *
+     d dsActInfo       ds                  QUALIFIED
+     d  dsActAre                     39A
+     d  dsActChk                           LIKEDS(dsActTypCheck)
+     d                                     OVERLAY(dsActAre:1)
+      *
+     d  dsActSav                           LIKEDS(dsActTypSave)
+     d                                     OVERLAY(dsActAre:1)
+      *
+     c                   eval      ActSSN          = '111223333'      
+     c                   eval      ActNum          = 'CHK4566112'      
+     c                   EVAL      Acttyp          = 'C'
+     c                   EVAL      ActtypD         = 'Checking  '     
+      *
+     C                   eval      dsActInfo.dsActChk.ActChkOdChg  = 25.00
+     C                   eval      dsActInfo.dsActChk.ActChkOdLimit= 2000.00
+     C                   eval      dsActInfo.dsActChk.ActChkOdLnk  ='SAV1234567'
+     C                   eval      dsActInfo.dsActChk.ActChkLastStm='10/31/2005'
+     C                   eval      dsActInfo.dsActChk.ActChkDtlItem= 0001
+     C                   eval      dsActInfo.dsActChk.ActChkBal= 41852.16
+      *
+     C                   eval      ActAre=dsActInfo.dsActAre
+     c                   write     ractmas
+      *
+     c                   eval      ActSSN          = '111223333'      
+     c                   eval      ActNum          = 'SAV1234567'      
+     c                   EVAL      Acttyp          = 'S'
+     c                   EVAL      ActtypD         = 'Savings   '       
+      *
+     C                   eval      dsActTypSave.ActSavIntRte = 4.50
+     C                   eval      dsActTypSave.ActSavSrvChg = 5.00
+     C                   eval      dsActTypSave.ActSavLstStm = '10/15/2005'
+     C                   eval      dsActTypSave.ActSavDtlItms= 0001
+     C                   eval      dsActTypSave.ActSavBal= 146229.83
+      *
+     C                   eval      ActAre=dsActTypSave
+     c                   write     ractmas
+      *
+     C                   eval      *inlr         = *ON
+      *

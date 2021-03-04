@@ -1,0 +1,643 @@
+<mappingConfiguration>
+  <simulators>
+    <simulator name="ELM Link Simulator" guid="76B268B7-6BCB-472A-9210-C4B45DCBD568" />
+    <simulator name="DPC Simulator" guid="B83F5F4D-665D-42E1-AFB6-CACD3F4EDCDF" />
+  </simulators>
+  <structures>
+    <structure name="MDEBCreateCustomerAlreadyExists" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="CreateCustomer" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="1" />
+        <member name="ErrorCode" type="short" defaultValue="5010" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="string" length="256" defaultValue="Customers Kim Akers already exists" />
+      </members>
+    </structure>
+    <structure name="MDEBCreateCustomerSuccess" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="CreateCustomer" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="0" />
+        <member name="ErrorCode" type="short" defaultValue="0" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="byte" defaultValue="40" repetition="256" />
+      </members>
+    </structure>
+    <structure name="MDEBGetAccountsInvalidName" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="GetAccounts" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="1" />
+        <member name="ErrorCode" type="short" defaultValue="5020" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="string" length="256" defaultValue="Customer name not found" />
+      </members>
+    </structure>
+    <structure name="MDEBGetAccountsSuccess" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="GetAccounts" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="0" />
+        <member name="ErrorCode" type="short" defaultValue="0" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="byte" defaultValue="40" repetition="256" />
+      </members>
+    </structure>
+    <structure name="MDEBGetBalanceSuccess" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="GetBalance" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="0" />
+        <member name="ErrorCode" type="short" defaultValue="0" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="byte" defaultValue="40" repetition="256" />
+      </members>
+    </structure>
+    <structure name="MDEBGetCustomerInfoSuccess" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="GetCustomerInfo" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="0" />
+        <member name="ErrorCode" type="short" defaultValue="0" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="byte" defaultValue="40" repetition="256" />
+      </members>
+    </structure>
+    <structure name="MDEBGetStatementsSuccess" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="GetStatements" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="0" />
+        <member name="ErrorCode" type="short" defaultValue="0" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="byte" defaultValue="40" repetition="256" />
+      </members>
+    </structure>
+    <structure name="MDEBSetCustomerInfoSuccess" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="SetCustomerInfo" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="0" />
+        <member name="ErrorCode" type="short" defaultValue="0" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="byte" defaultValue="40" repetition="256" />
+      </members>
+    </structure>
+    <structure name="MDEBSetCustomerInfoInvalidName" length="420">
+      <members>
+        <member name="MetaDataLength" type="integer" defaultValue="420" />
+        <member name="RuntimeVersion" type="string" length="32" defaultValue="8.0.0" />
+        <member name="MethodName" type="string" length="32" defaultValue="SetCustomerInfo" />
+        <member name="ProgID" type="string" length="40" defaultValue="WoodgroveBank.CustomerCareELMLink.1" />
+        <member name="ClsID" type="string" length="40" defaultValue="{d1de7812-1a36-4516-8b3a-1d1bb224fe36}" />
+        <member name="MajorVersion" type="short" defaultValue="1" />
+        <member name="MinorVersion" type="short" defaultValue="0" />
+        <member name="ReadyToCommit" type="short" defaultValue="0" />
+        <member name="WillingToDoMore" type="short" defaultValue="0" />
+        <member name="ReturnErrorToClient" type="short" defaultValue="1" />
+        <member name="ErrorCode" type="short" defaultValue="5015" />
+        <member name="HelpContext" type="integer" defaultValue="0" />
+        <member name="HelpString" type="string" length="256" defaultValue="Invalid Name. During simulation only adding Kim Akers is available" />
+      </members>
+    </structure>
+    <structure name="Checking" length="39">
+      <members>
+        <member name="Overdraft Charge" type="byte" length="3" defaultValue="02500c" />
+        <member name="Overdraft Limit" type="byte" length="4" defaultValue="0200000c" />
+        <member name="Overdraft Link Account" type="string" length="10" defaultValue="SAV1234567" />
+        <member name="Last Statement" type="string" length="10" defaultValue="10/31/2005" />
+        <member name="Detail Items" type="byte" length="4" defaultValue="0000001c" />
+        <member name="Balance" type="byte" length="8" defaultValue="000000004185216c" />
+      </members>
+    </structure>
+    <structure name="Savings" length="39">
+      <members>
+        <member name="Interest Rate" type="byte" length="2" defaultValue="450c" />
+        <member name="Service Charge" type="byte" length="3" defaultValue="00500c" />
+        <member name="Last Statement" type="string" length="10" defaultValue="10/15/2005" />
+        <member name="Detail Items" type="byte" length="4" defaultValue="0000001c" />
+        <member name="Balance" type="byte" length="8" defaultValue="000000014622983c" />
+        <member name="Filler" type="string" length="12" defaultValue="            " />
+      </members>
+    </structure>
+    <structure name="CheckingQualified" length="60">
+      <members>
+        <member name="Number" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="Type" type="string" length="1" defaultValue="C" />
+        <member name="Name" type="string" length="10" defaultValue="Checking" />
+        <member name="CheckingDetail" type="structure" referenceStructure="Checking" />
+      </members>
+    </structure>
+    <structure name="SavingsQualified" length="60">
+      <members>
+        <member name="Number" type="string" length="10" defaultValue="SAV1234567" />
+        <member name="Type" type="string" length="1" defaultValue="S" />
+        <member name="Name" type="string" length="10" defaultValue="Savings" />
+        <member name="Savings Details" type="structure" referenceStructure="Savings" />
+      </members>
+    </structure>
+    <structure name="FillerAcctInfo" length="60">
+      <members>
+        <member name="Filler" type="byte" defaultValue="00" repetition="60" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk01" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000001c" />
+        <member name="Type" type="string" length="1" defaultValue="B" />
+        <member name="Date" type="string" length="10" defaultValue="11/01/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000004185216c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk02" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000002c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/01/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000008000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk03" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000003c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/02/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000006000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk04" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000004c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/05/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000004000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk05" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000005c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/10/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000020000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk06" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000006c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/12/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000015000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk07" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000007c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/15/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000020000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk08" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000008c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/20/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000020000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk09" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000009c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/22/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000015000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk10" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000010c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/23/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000002000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailChk11" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000011c" />
+        <member name="Type" type="string" length="1" defaultValue="D" />
+        <member name="Date" type="string" length="10" defaultValue="11/30/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000010000c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailSav01" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="SAV1234567" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000001c" />
+        <member name="Type" type="string" length="1" defaultValue="S" />
+        <member name="Date" type="string" length="10" defaultValue="11/01/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000014622983c" />
+      </members>
+    </structure>
+    <structure name="TransactionDatailSav02" length="33">
+      <members>
+        <member name="AccountNumber" type="string" length="10" defaultValue="SAV1234567" />
+        <member name="ItemNumber" type="byte" length="4" defaultValue="0000002c" />
+        <member name="Type" type="string" length="1" defaultValue="C" />
+        <member name="Date" type="string" length="10" defaultValue="11/15/2005" />
+        <member name="TransactionAmount" type="byte" length="8" defaultValue="000000000004000c" />
+      </members>
+    </structure>
+    <structure name="CustomerInformationKimAkers" length="65">
+      <members>
+        <member name="SSN" type="string" length="9" defaultValue="111223333" />
+        <member name="Street" type="string" length="20" defaultValue="20500 NE 98th St." />
+        <member name="City" type="string" length="10" defaultValue="Kirkland" />
+        <member name="State" type="string" length="4" defaultValue="Wa" />
+        <member name="ZipCode" type="string" length="5" defaultValue="98052" />
+        <member name="Phone" type="string" length="13" defaultValue="(425)881-3211" />
+        <member name="AccessPin" type="string" length="4" defaultValue="1111" />
+      </members>
+    </structure>
+    <structure name="CustomerInformationDougCarrell" length="65">
+      <members>
+        <member name="SSN" type="string" length="9" defaultValue="222334444" />
+        <member name="Street" type="string" length="20" defaultValue="20520 NE 205th St." />
+        <member name="City" type="string" length="10" defaultValue="Sammamish" />
+        <member name="State" type="string" length="4" defaultValue="Wa" />
+        <member name="ZipCode" type="string" length="5" defaultValue="98074" />
+        <member name="Phone" type="string" length="13" defaultValue="(425)321-8475" />
+        <member name="AccessPin" type="string" length="4" defaultValue="2222" />
+      </members>
+    </structure>
+  </structures>
+  <requests>
+    <request name="CreateCustomer" length="450">
+      <members>
+        <member name="Meta Data Error Block" type="structure" referenceStructure="MDEBGetAccountsSuccess" />
+        <member name="Customer Name" type="string" length="30" defaultValue="00" />
+      </members>
+    </request>
+    <request name="GetAccounts" length="450">
+      <members>
+        <member name="MDEB" type="structure" referenceStructure="MDEBGetAccountsSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="00" />
+      </members>
+    </request>
+    <request name="GetBalance" length="468">
+      <members>
+        <member name="MDEB" type="structure" referenceStructure="MDEBGetBalanceSuccess" />
+        <member name="ReturnValue" type="byte" length="8" defaultValue="00" />
+        <member name="Name" type="string" length="30" defaultValue="00" />
+        <member name="AccountNumber" type="string" length="10" defaultValue="00" />
+      </members>
+    </request>
+    <request name="GetCustomerInfo" length="450">
+      <members>
+        <member name="MDEB" type="structure" referenceStructure="MDEBGetCustomerInfoSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="00" />
+      </members>
+    </request>
+    <request name="GetStatements" length="450">
+      <members>
+        <member name="MDEB" type="structure" referenceStructure="MDEBGetStatementsSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="00" />
+      </members>
+    </request>
+    <request name="SetCustomerInfo" length="450">
+      <members>
+        <member name="MDEB" type="structure" referenceStructure="MDEBSetCustomerInfoSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="00" />
+      </members>
+    </request>
+  </requests>
+  <responses>
+    <response name="respCreateCustomerAlreadyExists" length="459">
+      <members>
+        <member name="MDEB Cannot Add Customers" type="structure" referenceStructure="MDEBCreateCustomerAlreadyExists" />
+        <member name="Customer Name" type="string" length="30" defaultValue="Kim Akers" />
+        <member name="SSN" type="string" length="9" defaultValue="111223333" />
+      </members>
+    </response>
+    <response name="respCreateCustomerSuccess" length="459">
+      <members>
+        <member name="MDEB Cannot Add Customers" type="structure" referenceStructure="MDEBCreateCustomerSuccess" />
+        <member name="Customer Name" type="string" length="30" defaultValue="Kim Akers x" />
+        <member name="SSN" type="string" length="9" defaultValue="222334444" />
+      </members>
+    </response>
+    <response name="respGetAccountsKimAkers" length="32496">
+      <members>
+        <member name="MDEBSuccess" type="structure" referenceStructure="MDEBGetAccountsSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="Kim Akers" />
+        <member name="MaxAccounts" type="short" defaultValue="20" />
+        <member name="ReturnValue" type="short" defaultValue="0" />
+        <member name="AccountsReturned" type="short" defaultValue="2" />
+        <member name="AccountInformationChecking" type="structure" referenceStructure="CheckingQualified" />
+        <member name="AccountInformationSavings" type="structure" referenceStructure="SavingsQualified" />
+        <member name="Filler" type="structure" referenceStructure="FillerAcctInfo" repetition="532" />
+      </members>
+    </response>
+    <response name="respGetAccountsInvalidName" length="32496" action="useAsDefault" detail="noDetail">
+      <members>
+        <member name="MDEBInvalidName" type="structure" referenceStructure="MDEBGetAccountsInvalidName" />
+        <member name="Name" type="string" length="30" defaultValue="xxx" />
+        <member name="MaxAccounts" type="short" defaultValue="20" />
+        <member name="ReturnValue" type="short" defaultValue="0" />
+        <member name="AccountsReturned" type="short" defaultValue="2" />
+        <member name="AccountInformationChecking" type="structure" referenceStructure="CheckingQualified" />
+        <member name="AccountInformationSavings" type="structure" referenceStructure="SavingsQualified" />
+        <member name="Filler" type="structure" referenceStructure="FillerAcctInfo" repetition="532" />
+      </members>
+    </response>
+    <response name="respGetBalanceChk" length="468">
+      <members>
+        <member name="MDEBSuccess" type="structure" referenceStructure="MDEBGetBalanceSuccess" />
+        <member name="Balance" type="byte" length="8" defaultValue="000000004055216c" />
+        <member name="Name" type="string" length="30" defaultValue="Kim Akers" />
+        <member name="AccountNumber" type="string" length="10" defaultValue="CHK4566112" />
+      </members>
+    </response>
+    <response name="respGetBalanceSav" length="468">
+      <members>
+        <member name="MDEBSuccess" type="structure" referenceStructure="MDEBGetBalanceSuccess" />
+        <member name="Balance" type="byte" length="8" defaultValue="000000014622983c" />
+        <member name="Name" type="string" length="30" defaultValue="Kim Akers" />
+        <member name="AccountNumber" type="string" length="10" defaultValue="SAV1234567" />
+      </members>
+    </response>
+    <response name="respGetCustomerInfo" length="515">
+      <members>
+        <member name="MDEBSuccess" type="structure" referenceStructure="MDEBGetCustomerInfoSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="Kim Akers" />
+        <member name="ReturnValue" type="structure" referenceStructure="CustomerInformationKimAkers" />
+      </members>
+    </response>
+    <response name="respGetStatements" length="30156">
+      <members>
+        <member name="MDEBSuccess" type="structure" referenceStructure="MDEBGetStatementsSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="Kim Akers" />
+        <member name="MaxTransactions" type="short" defaultValue="20" />
+        <member name="ReturnValue" type="short" defaultValue="0" />
+        <member name="TransactionsReturned" type="short" defaultValue="13" />
+        <member name="Tx1" type="structure" referenceStructure="TransactionDatailChk01" />
+        <member name="Tx2" type="structure" referenceStructure="TransactionDatailChk02" />
+        <member name="Tx3" type="structure" referenceStructure="TransactionDatailChk03" />
+        <member name="Tx4" type="structure" referenceStructure="TransactionDatailChk04" />
+        <member name="Tx5" type="structure" referenceStructure="TransactionDatailChk05" />
+        <member name="Tx6" type="structure" referenceStructure="TransactionDatailChk06" />
+        <member name="Tx7" type="structure" referenceStructure="TransactionDatailChk07" />
+        <member name="Tx8" type="structure" referenceStructure="TransactionDatailChk08" />
+        <member name="Tx9" type="structure" referenceStructure="TransactionDatailChk09" />
+        <member name="Tx10" type="structure" referenceStructure="TransactionDatailChk10" />
+        <member name="Tx11" type="structure" referenceStructure="TransactionDatailChk11" />
+        <member name="Tx12" type="structure" referenceStructure="TransactionDatailSav01" />
+        <member name="Tx13" type="structure" referenceStructure="TransactionDatailSav02" />
+        <member name="Filler" type="byte" defaultValue="00" repetition="29271" />
+      </members>
+    </response>
+    <response name="respSetCustomerInfoKimAkers" length="515">
+      <members>
+        <member name="MDEBSuccess" type="structure" referenceStructure="MDEBSetCustomerInfoSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="Kim Akers" />
+        <member name="CustomerDetails" type="structure" referenceStructure="CustomerInformationDougCarrell" />
+      </members>
+    </response>
+    <response name="respSetCustomerInfoInvalidName" length="515">
+      <members>
+        <member name="MDEBSuccess" type="structure" referenceStructure="MDEBSetCustomerInfoSuccess" />
+        <member name="Name" type="string" length="30" defaultValue="Kim Akers" />
+        <member name="CustomerDetails" type="structure" referenceStructure="CustomerInformationDougCarrell" />
+      </members>
+    </response>
+  </responses>
+  <mappings>
+    <mapping request="CreateCustomer">
+      <simulatorRecognitions>
+        <simulatorRecognition name="ELM Link Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="7515" />
+            <recognitionField name="Program" value="WTIADDC" />
+          </recognitionFields>
+        </simulatorRecognition>
+        <simulatorRecognition name="DPC Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="8475" />
+            <recognitionField name="Library" value="APPINT" />
+            <recognitionField name="Program" value="WTIADDC" />
+          </recognitionFields>
+        </simulatorRecognition>
+      </simulatorRecognitions>
+      <dataMappings>
+        <dataMapping response="respCreateCustomerAlreadyExists">
+          <dataRecognitionFields>
+            <dataRecognitionField type="offset" offset="36" length="14" value="CreateCustomer" />
+            <dataRecognitionField type="named" name="Customer Name" value="Kim Akers" />
+          </dataRecognitionFields>
+        </dataMapping>
+      </dataMappings>
+    </mapping>
+    <mapping request="GetAccounts">
+      <simulatorRecognitions>
+        <simulatorRecognition name="ELM Link Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="7516" />
+            <recognitionField name="Program" value="WTIGACC" />
+          </recognitionFields>
+        </simulatorRecognition>
+        <simulatorRecognition name="DPC Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="8475" />
+            <recognitionField name="Library" value="APPINT" />
+            <recognitionField name="Program" value="WTIGACC" />
+          </recognitionFields>
+        </simulatorRecognition>
+      </simulatorRecognitions>
+      <dataMappings>
+        <dataMapping response="respGetAccountsKimAkers">
+          <dataRecognitionFields>
+            <dataRecognitionField type="named" name="Name" value="Kim Akers" />
+          </dataRecognitionFields>
+        </dataMapping>
+        <dataMapping response="respGetAccountsInvalidName">
+          <dataRecognitionFields>
+            <dataRecognitionField type="named" name="Name" value="Invalid Name" />
+          </dataRecognitionFields>
+        </dataMapping>
+      </dataMappings>
+    </mapping>
+    <mapping request="GetBalance">
+      <simulatorRecognitions>
+        <simulatorRecognition name="ELM Link Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="7516" />
+            <recognitionField name="Program" value="WTIGBAL" />
+          </recognitionFields>
+        </simulatorRecognition>
+        <simulatorRecognition name="DPC Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="8475" />
+            <recognitionField name="Library" value="APPINT" />
+            <recognitionField name="Program" value="WTIGBAL" />
+          </recognitionFields>
+        </simulatorRecognition>
+      </simulatorRecognitions>
+      <dataMappings>
+        <dataMapping response="respGetBalanceChk">
+          <dataRecognitionFields>
+            <dataRecognitionField type="named" name="Name" value="Kim Akers" />
+            <dataRecognitionField type="named" name="AccountNumber" value="CHK4566112" />
+          </dataRecognitionFields>
+        </dataMapping>
+        <dataMapping response="respGetBalanceSav">
+          <dataRecognitionFields>
+            <dataRecognitionField type="named" name="Name" value="Kim Akers" />
+            <dataRecognitionField type="named" name="AccountNumber" value="SAV1234567" />
+          </dataRecognitionFields>
+        </dataMapping>
+      </dataMappings>
+    </mapping>
+    <mapping request="GetCustomerInfo">
+      <simulatorRecognitions>
+        <simulatorRecognition name="ELM Link Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="7516" />
+            <recognitionField name="Program" value="WTIGCUSI" />
+          </recognitionFields>
+        </simulatorRecognition>
+        <simulatorRecognition name="DPC Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="8475" />
+            <recognitionField name="Library" value="APPINT" />
+            <recognitionField name="Program" value="WTIGCUSI" />
+          </recognitionFields>
+        </simulatorRecognition>
+      </simulatorRecognitions>
+      <dataMappings>
+        <dataMapping response="respGetCustomerInfo">
+          <dataRecognitionFields>
+            <dataRecognitionField type="named" name="Name" value="Kim Akers" />
+          </dataRecognitionFields>
+        </dataMapping>
+      </dataMappings>
+    </mapping>
+    <mapping request="GetStatements">
+      <simulatorRecognitions>
+        <simulatorRecognition name="ELM Link Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="7516" />
+            <recognitionField name="Program" value="WTIGSTMT" />
+          </recognitionFields>
+        </simulatorRecognition>
+        <simulatorRecognition name="DPC Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="8475" />
+            <recognitionField name="Library" value="APPINT" />
+            <recognitionField name="Program" value="WTIGSTMT" />
+          </recognitionFields>
+        </simulatorRecognition>
+      </simulatorRecognitions>
+      <dataMappings>
+        <dataMapping response="respGetStatements">
+          <dataRecognitionFields>
+            <dataRecognitionField type="named" name="Name" value="Kim Akers" />
+          </dataRecognitionFields>
+        </dataMapping>
+      </dataMappings>
+    </mapping>
+    <mapping request="SetCustomerInfo">
+      <simulatorRecognitions>
+        <simulatorRecognition name="ELM Link Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="7516" />
+            <recognitionField name="Program" value="WTISCUSI" />
+          </recognitionFields>
+        </simulatorRecognition>
+        <simulatorRecognition name="DPC Simulator">
+          <recognitionFields>
+            <recognitionField name="Port" value="8475" />
+            <recognitionField name="Library" value="APPINT" />
+            <recognitionField name="Program" value="WTISCUSI" />
+          </recognitionFields>
+        </simulatorRecognition>
+      </simulatorRecognitions>
+      <dataMappings>
+        <dataMapping response="respSetCustomerInfoInvalidName">
+          <dataRecognitionFields />
+        </dataMapping>
+        <dataMapping response="respSetCustomerInfoKimAkers">
+          <dataRecognitionFields>
+            <dataRecognitionField type="named" name="Name" value="Kim Akers" />
+          </dataRecognitionFields>
+        </dataMapping>
+      </dataMappings>
+    </mapping>
+  </mappings>
+</mappingConfiguration>

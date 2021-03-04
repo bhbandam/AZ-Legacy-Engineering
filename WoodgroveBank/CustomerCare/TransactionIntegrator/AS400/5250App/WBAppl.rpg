@@ -1,0 +1,636 @@
+      ******************************************************************
+      * File Definitions
+      ******************************************************************
+      *
+     FWBAppScr  cf   e             workstn SFILE(SFL01:SFRRN1)
+     FCusMasl1  uf a e           k DISK
+     FActMasl1  uf a e           k DISK
+     FTrnDtlL1  uf a e           k DISK
+      *
+      ******************************************************************
+      * Data Definitions
+      ******************************************************************
+     D SFRRN1          s              8  0
+     D err             S             75A   Dim(17) ctdata
+     D cde             S              1A   Dim(4) ctdata
+     D typ             S             10A   Dim(4) ctdata
+     D #cnt            S              3  0
+     D #x              S              1  0
+      *
+     d CustName        s                   LIKE(CUSNAM)
+     D SSN             s                   LIKE(CUSSSN)
+     D num             s                   LIKE(actnum)
+     d ##SSN           s                   LIKE(CUSSSN)
+     d ##ACT           s                   LIKE(actnum)
+      *
+      ******************************************************************
+      * Account information used to redefine the account area.
+      ******************************************************************
+      *
+     d pAcctBal        s             15p 2
+     d dsActTypCheck   ds                  QUALIFIED
+     d  ActChkOdChg                   5P 2
+     d  ActChkOdLimit                 7P 2
+     d  ActChkOdLnk                  10A
+     d  ActChkLastStm                10a
+     d  ActChkDtlItem                 7P 0
+     d  ActChkBal                    15P 2
+      *
+     d dsActTypSave    ds                   QUALIFIED
+     d  ActSavIntRte                  3p 2
+     d  ActSavSrvChg                  5p 2
+     d  ActSavLstStm                 10a
+     d  ActSavDtlItms                 7p 0
+     d  ActSavBal                    15p 2
+     d* ActSavFil                    12A
+      *
+     d dsActInfo       ds                  QUALIFIED
+     d  dsActAre                     39A
+     d  dsActChk                           LIKEDS(dsActTypCheck)
+     d                                     OVERLAY(dsActAre:1)
+      *
+     d  dsActSav                           LIKEDS(dsActTypSave)
+     d                                     OVERLAY(dsActAre:1)
+      *
+     C     kyCusMas1     KLIST
+     c                   KFLD                    CustName
+      *
+     C                   EVAL      MODE          = 'PROMPT  '
+      *
+      *Display screen
+      *
+     C                   movea     '000'         *in(50)
+     C                   dow       *INKC         = *OFF
+      *
+     C                   EVAL      *IN10         = *OFF
+     C                   exsr      clrsf1
+     C                   exsr      setind
+     C                   exsr      dspsf1
+      *
+     C                   if        *INKC         =*off
+      *
+      *Use the customer name to prompt for file access.
+      *
+     C                   exsr      CusVal
+      *
+     C                   if        errmsg        =*blanks
+     C                   exsr      GetCus
+     c                   SELECT
+      *
+      * Clear function key selected
+      *
+     C                   WHEN      *INKE         = *ON
+     C                   exsr      ClrAll
+     C                   EVAL      MODE          = 'PROMPT  '
+      *
+      *Customer record found update mode.
+      *
+     C                   WHEN      *IN99         = *OFF
+     C                   exsr      CusUpd
+      *
+      *Customer record not found add mode.
+      *
+     C                   WHEN      *IN99         = *ON
+     C                   exsr      CusAdd
+     c                   ENDSL
+     c                   ENDIF
+      *
+     c                   ENDIF
+     c                   ENDdo
+     C                   eval      *INLR         = *ON
+      *
+      **************************************************************
+      * Set up indicators based on the edit mode
+      **************************************************************
+      *
+     c     SetInd        begsr
+      *
+     C                   SELECT
+     C                   WHEN      MODE          = 'PROMPT  '
+     C                   MOVEA     '100'         *IN(50)
+     C                   WHEN      MODE          = 'ADDITION'
+     C                   MOVEA     '110'         *IN(50)
+     C                   WHEN      MODE          = 'UPDATE  '
+     C                   MOVEA     '100'         *IN(50)
+     C                   WHEN      MODE          = 'DELETE  '
+     C                   MOVEA     '101'         *IN(50)
+     C                   endsl
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Get Customer Iformation.
+      **************************************************************
+      *
+     c     GETCUS        begsr
+      *
+     C     sCustName     setll     cusmasl1
+     C     sCustName     reade     cusmasl1                               99
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Clear customer header fields.
+      **************************************************************
+      *
+     c     ClrForAdd     begsr
+      *
+      * Clear customer header fields.
+      *
+     c                   eval      sSocSec#      =CusSSN
+     c                   eval      sStreet       =*BLANKS
+     c                   eval      sCity         =*BLANKS
+     c                   eval      sState        =*BLANKS
+     c                   MOVE      *BLANKS       CusZip
+     c                   MOVE      *BLANKS       CusPho
+     c                   eval      sPin          =*BLANKS
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Add a customer record.
+      **************************************************************
+      *
+     c     CusAdd        begsr
+      *
+     C                   DOU       MODE          = 'PROMPT  '
+      *
+      * Load add messge clear fields and display addition screen.
+      *
+     C                   move      err(7)        ERRMSG
+     C                   exsr      ClrForAdd
+     C                   exsr      setind
+     C                   exsr      dspsf1
+     C                   movea     '110'         *in(50)
+      *
+     C                   if        *INKF         = *ON
+     C                   EVAL      *IN10         = *ON
+     C                   exsr      setind
+     C                   exsr      dspsf1
+      *
+      * If function key 3 5 or 12 is pressed return to prompt mode.
+      *
+     C                   if        *INKC         = *ON
+     C                             OR            *INKE= *ON
+     C                             OR            *INKL= *ON
+     C                   EVAL      MODE          = 'PROMPT  '
+     C                   move      *BLANKS       ERRMSG
+     C                   leave
+     C                   endif
+      *
+      * Validate customer information if valid add and return to prompt.
+      *
+     c                   EXSR      CusVal
+      *
+      * If no errors found load data file fields.
+      *
+     C                   IF        ERRMSG        = *BLANKS
+     c                   eval      CusNam        =sCustName
+     c                   eval      CusSSN        =sSocSec#
+     c                   eval      CusStr        =sStreet
+     c                   eval      CusCty        =sCity
+     c                   eval      CusSta        =sState
+     c                   z-add     sZipCode      CusZip
+     c                   eval      CusPho        =sPhoneNum
+     c                   eval      CusPin        =sPin
+      *
+      * Write customer master record and return to prompt mode.
+      *
+     C                   write     rcusmas
+      *
+      * Clear all fields and return to prompt.
+      *
+     C                   EVAL      MODE          = 'PROMPT  '
+     c                   EXSR      ClrAll
+     C                   LEAVE
+     C                   endif
+      *
+     C                   endif
+     C                   endDO
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Update customer account
+      **************************************************************
+      *
+     c     CusUpd        begsr
+      *
+      * Load data for selected customer.
+      *
+     C                   EVAL      MODE          = 'UPDATE  '
+     C                   movea     '1011'        *in(50)
+     c                   EXSR      LodCus
+     C                   exsr      setind
+     C                   exsr      dspsf1
+      *
+      * Process function key selected.
+      *
+     C                   select
+      *
+      * Function key 9  - delete.
+      *
+     C                   WHEN      *INKI         = *ON
+     c                   EXSR      DelCus
+      *
+      * If function key 10 display transaction add window.
+      *
+     C                   WHEN      *INKH         = *ON
+     C                   exsr      AddTrn
+      *
+      * If function key 10 display transaction add window.
+      *
+     C                   WHEN      *INKJ         = *ON
+     C                   eval      w1ssn         =sSocSec#
+     C                   exfmt     actadd
+      *
+     C                   select
+     C                   WHEN      w1ssn         =*blanks
+     C                   movea     err(15)       errmsg
+     C                   WHEN      w1acct#       =*blanks
+     C                   movea     err(16)       errmsg
+     C                   WHEN      W1type        =*zeros
+     C                   movea     err(17)       errmsg
+     C                   other
+      *
+      * No errors found write the record
+      *
+     C                   eval      actssn        =w1ssn
+     C                   eval      actnum        =w1acct#
+     C                   eval      acttyp        =w1type
+      *
+     C                   IF        acttyp        ='C'
+     c                   eval      dsActTypCheck.ActChkOdChg      =*zeros
+     c                   eval      dsActTypCheck.ActChkOdLimit    =*zeros
+     c                   eval      dsActTypCheck.ActChkDtlItem    =*zeros
+     c                   eval      dsActTypCheck.ActChkBal        =w1intbal
+     C                   endif
+      *
+     C                   IF        acttyp        ='S'
+     c                   eval      dsActTypSave.ActSavIntRte   =*zeros
+     c                   eval      dsActTypSave.ActSavIntRte   =*zeros
+     c                   eval      dsActTypSave.ActSavSrvChg   =*zeros
+     c                   eval      dsActTypSave.ActSavDtlItms  =*zeros
+     c                   eval      dsActTypSave.ActSavBal      =w1intbal
+     C                   endif
+     C                   write     ractmas
+     C                   endsl
+      *
+      *
+      * Function key 12 - previous.
+      *
+     C                   WHEN      *INKL         = *ON
+     C                   EVAL      MODE          = 'PROMPT  '
+     C                   z-add     *zeros        sfrrn1
+     C                   eval      *IN10         = *OFF
+      *
+      * Function key 23 - delete.
+      *
+     C                   WHEN      *INKW         = *ON
+     c                   EXSR      DelCus
+      *
+      * Enter - update selected.
+      *
+     C                   other
+      *
+     c                   EXSR      CusVal
+     C                   IF        ERRMSG        = *BLANKS
+     c                   eval      CusSSN        =sSocSec#
+     c                   eval      CusStr        =sStreet
+     c                   eval      CusCty        =sCity
+     c                   eval      CusSta        =sState
+     c                   z-add     sZipCode      CusZip
+     c                   eval      CusPho        =sPhoneNum
+     c                   eval      CusPin        =sPin
+      *
+     C                   update    rcusmas
+      *
+      * Reset to prompt mode.
+      *
+     C                   EVAL      MODE          = 'PROMPT  '
+     C                   z-add     *zeros        sfrrn1
+     C                   movea     '000'         *in(50)
+     C                   eval      *IN10         = *OFF
+     C                   endif
+      *
+     C                   endsl
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Delete customer account
+      **************************************************************
+      *
+     c     DelCus        begsr
+      *
+     C                   delete    rcusmas
+     C                   eval      *IN10         = *OFF
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Clear all fields
+      **************************************************************
+     c     ClrAll        begsr
+      *
+     c                   move      *BLANKS       sCustName
+     c                   move      *BLANKS       sSocSec#
+     c                   move      *BLANKS       sStreet
+     c                   move      *BLANKS       sCity
+     c                   move      *BLANKS       sState
+     c                   move      *ZEROS        sZipCode
+     c                   move      *BLANKS       sPhoneNum
+     c                   move      *BLANKS       sPin
+     C                   EVAL      *in10         = *off
+     c                   move      *BLANKS       ErrMsg
+      *
+     c                   endsr
+      *
+      *******************************************************************
+      *
+      * Sub-routine: CLRSF1
+      * Clear Backup Subfile - Headers
+      *
+      *******************************************************************
+      *
+     C     CLRSF1        Begsr
+      *
+     C                   z-add     *ZEROS        SFRRN1
+     C                   EVAL      *IN32         =*ON
+     C                   WRITE     ctl01
+     C                   EVAL      *IN32         =*OFF
+      *
+     C                   endsr
+      *
+      **************************************************************
+      * Validate customer information.
+      **************************************************************
+      *
+     c     CusVal        begsr
+      *
+     C                   move      *BLANKS       ERRMSG
+     C                   IF        mode          = 'PROMPT '
+     C                   SELECT
+     C                   WHEN      sCustname     = *Blanks
+     C                   move      err(1)        ERRMSG
+     C                   eval      *in99         = *ON
+     C                   endsl
+     C                   else
+      *
+     C                   SELECT
+     c                   WHEN      sCustname      = *Blanks
+     C                   move      err(1)        ERRMSG
+     C                   eval      *in99         = *ON
+      *
+     C                   WHEN      sStreet       = *Blanks
+     C                   move      err(2)        ERRMSG
+     C                   eval      *in99         = *ON
+      *
+     C                   WHEN      sCity         = *Blanks
+     C                   move      err(3)        ERRMSG
+     C                   eval      *in99         = *ON
+      *
+     C                   WHEN      sZipCode      = *zeros
+     C                   move      err(4)        ERRMSG
+     C                   eval      *in99         = *ON
+      *
+     C                   WHEN      sPhoneNum     = *Blanks
+     C                   move      err(5)        ERRMSG
+     C                   eval      *in99         = *ON
+      *
+     C                   WHEN      sSocSec#      = *Blanks
+     C                   move      err(6)        ERRMSG
+     C                   eval      *in99         = *ON
+      *
+     C                   WHEN      sPin          = *Blanks
+     C                   move      err(6)        ERRMSG
+     C                   eval      *in99         = *ON
+     C                   endsl
+      *
+     C                   endif
+      *
+     c                   endsr
+      *
+      *********************************************************************
+      * SUBROUTINE  -  DSPSF1 Display subfile 1
+      *********************************************************************
+      *
+     C     DSPSF1        begsr
+      *
+     C                   IF        SFRRN1        > *ZEROS
+     C                   MOVEA     '11'          *IN(30)
+     C                   ELSE
+     C                   MOVEA     '10'          *IN(30)
+     C                   write     blank
+     C                   ENDIF
+      *
+     C                   movea     '10101'       *IN(50)
+     C                   write     sflkey1
+     C                   exfmt     ctl01
+      *
+     C                   if        sfrrn1        > *zeros
+     C                   exsr      prcsf1
+     C                   endif
+      *
+     C                   endsr
+      *
+      **************************************************************
+      * Get Account Information.
+      **************************************************************
+      *
+     c     LodAct        begsr
+      *
+      * Clear the subfile.
+      *
+     C                   exsr      ClrSf1
+      *
+     C                   z-add     *zeros        #cnt
+     C                   MOVE      *blanks       #testn            8
+     C                   add       *zeros        SFRRN1
+     C                   eval      *in99         = *off
+     C     sSocSec#      setll     actmasl1
+      *
+     C                   dow       *in99         = *off
+     C     sSocSec#      reade     actmasl1                               99
+     C                   if        *in99         = *off
+     c                   eval      SFACCT# =actnum
+      *
+     C                   eval      dsActInfo.dsActAre =ActAre
+      *
+     c                   select
+     c                   WHEN      Acttyp          = 'C'
+     C                   eval      pAcctBal=dsActInfo.dsActChk.ActChkBal
+     c                   eval      SFAMOUNT = %editc(pacctbal:'L')
+     C                   MOVE      'Checking'    SFTYPE
+      *
+     c                   WHEN      Acttyp          = 'S'
+     C                   eval      pAcctBal=dsActInfo.dsActSav.ActSavBal
+     c                   eval      SFAMOUNT = %editc(pacctbal:'L')
+     C                   MOVE      'Saving  '    SFTYPE
+     C                   OTHER
+     c                   endsl
+      *
+     C                   add       1             SFRRN1
+     C                   movea     '11'          *IN(10)
+     C                   write     sfl01
+     C                   endif
+     C                   enddo
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Get Transaction Detail.
+      **************************************************************
+      *
+     c     LodTrn        begsr
+      *
+     C     trnkey        klist
+     C                   kfld                    ##SSN
+     C                   KFLD                    ##ACT
+      *
+     C                   z-add     *zeros        #cnt
+     C                   add       *zeros        SFRRN1
+     C                   eval      *in99         = *off
+     C     trnkey        setll     trndtll1
+      *
+     C                   dow       *in99         = *off
+     C     trnkey        reade     trndtll1                               99
+     C                   if        *in99         = *off
+     c                   eval      SFACCT# =trnact
+     c                   eval      SFITEM# =trnitm
+      *
+     C                   z-add     1             #x
+     C     trntyp        LOOKUP    Cde(#x)                                50
+     C                   If        #x            >*zeros
+     C                   MOVE      Typ(#x)       SFTYPE
+     C                   endif
+      *
+     c                   eval      SFDATE  =trndte
+     c                   eval      SFAMOUNT = %editc(trnAMT:'L')
+      *
+     C                   add       1             SFRRN1
+     C                   movea     '10'          *IN(10)
+     C                   write     sfl01
+     C                   endif
+     C                   enddo
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account found load output fields
+      **************************************************************
+      *
+     c     LodCus        begsr
+      *
+      * Load customer data.
+      *
+     c                   eval      sCustName     =CusNam
+     c                   eval      sSocSec#      =CusSSN
+     c                   eval      sStreet       =CusStr
+     c                   eval      sCity         =CusCty
+     c                   eval      sState        =CusSta
+     c                   MOVE      CusZip        sZipCode
+     c                   MOVE      CusPho        sPhoneNum
+     c                   eval      sPin          =CusPin
+     C                   EVAL      *in10         = *on
+      *
+      *Attempt to retrieve customer record if found set mode to display
+      *if not found to addition
+      *
+     c                   EXSR      LodAct
+      *
+     c                   endsr
+      *
+      *******************************************************************
+      *
+      * Sub-routine: AddTrn
+      *
+      *******************************************************************
+      *
+     C     AddTrn        BEGSR
+      *
+     C                   exfmt     trnadd
+      *
+     C                   select
+     C                   WHEN      trnssn        =*blanks
+     C                   movea     err(9)        errmsg
+     C                   WHEN      trnact        =*blanks
+     C                   movea     err(10)       errmsg
+     C                   WHEN      trnitm        =*zeros
+     C                   movea     err(11)       errmsg
+     C                   WHEN      trntyp        =*blanks
+     C                   movea     err(12)       errmsg
+     C                   WHEN      trndte        =*blanks
+     C                   movea     err(13)       errmsg
+     C                   WHEN      trnamt        =*zeros
+     C                   movea     err(14)       errmsg
+     C                   other
+      *
+      * No errors found write the record
+      *
+     C                   eval      trnssn        =cusssn
+     C                   eval      trnact        =acctnum
+     C                   eval      trnitm        =item
+     C                   eval      trntyp        =type
+     C                   eval      trndte        =date
+     C                   eval      trnamt        =amount
+     C                   write     rtrndtl
+     C                   endsl
+      *
+     C                   endsr
+      *
+      *******************************************************************
+      *
+      * Sub-routine: PRCSF1
+      * Process subfile selections.
+      *
+      *******************************************************************
+      *
+     C     PrcSf1        Begsr
+      *
+     C                   eval      *in98         = *off
+     C                   dow       *in98         = *off
+     C                   readc     sfl01                                  98
+     C                   if        *in98         = *OFF
+     C                   select
+     C                   WHEN      sfsel         = 'U'
+     C                   WHEN      sfsel         = 'D'
+      *
+     C                   WHEN      sfsel         = 'S'
+     C                   eval      ##SSN         =SSOCSEC#
+     C                   EVAL      ##ACT         =SFACCT#
+     C                   exsr      ClrSf1
+     C                   exsr      LodTrn
+     C                   endsl
+     C                   endif
+     C                   enddo
+      *
+     C                   endsr
+**
+Customer Name Cannot be blanks
+Customer Address Cannot be blanks
+Customer City Cannot be blanks
+Customer State Cannot be blanks
+Customer Zip Cannot be blanks
+Customer SSN Cannot be blanks
+Customer Does not exit press F6 to add.
+Transaction SSN Cannot be blanks
+Transaction Account Cannot be blanks
+Transaction Item Cannot be blanks
+Transaction Type Cannot be blanks
+Transaction Date Cannot be blanks
+Transaction Amount Cannot be blanks
+Account SSN Cannot be blanks
+Account Number Cannot be blanks
+Account Type Cannot be blanks
+**
+B
+D                                                                      ING
+C
+O
+**
+Init Bal
+Debit                                                                  ING
+Credit
+Overdraft
+

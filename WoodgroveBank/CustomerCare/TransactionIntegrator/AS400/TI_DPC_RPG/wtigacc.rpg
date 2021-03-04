@@ -1,0 +1,269 @@
+      ******************************************************************
+      * File Definitions
+      ******************************************************************
+      *
+     FCusMasL1  if   e           k DISK
+     FActMasL2  if   e           k DISK
+     FTrnDtlL1  if   e           k DISK
+      *
+      ******************************************************************
+      * Data Definitions
+      ******************************************************************
+     D Name            s             30A
+     D RESPCODE        S              9S 0 INZ(*ZEROS)
+     D RETCODE         S              4  0 INZ(*ZEROS)
+     D EDITNUM         S              7S 0
+     D msg             S             45A   Dim(3) ctdata
+     D #cnt            S              3  0
+      *
+     D SSN             s                   LIKE(CUSSSN)
+     D num             s                   LIKE(actnum)
+     d pRetCode        s              4  0
+     d pCUSTNAME       s             30A
+     d pMaxOutAccts    s              5i 0
+     d pMoreAccts      s              5i 0
+     d pAccoutsCnt     s              5i 0
+      *
+      ******************************************************************
+      * User Data
+      ******************************************************************
+      *
+     d  pCustPin       S              4A
+      *
+      ******************************************************************
+      * Account information muliple occurance data structure.
+      ******************************************************************
+      *
+     d dsAccts         ds                  OCCURS(534) QUALIFIED
+     d  dsActNum                     10A
+     d  dsActType                     1A
+     d  dsActName                    10A
+     d  dsAcctInfo                         LIKEDS(dsActInfo)
+      *
+      ******************************************************************
+      * Account information used to redefine the account area.
+      ******************************************************************
+      *
+     d dsActTypCheck   ds
+     d  ActChkOdChg                   5P 2
+     d  ActChkOdLimit                 7P 2
+     d  ActChkOdLnk                  10A
+     d  ActChkLastStm                10a
+     d  ActChkDtlItem                 7P 0
+     d  ActChkBal                    15P 2
+      *
+     d dsActTypSave    ds
+     d  ActSavIntRte                  3p 2
+     d  ActSavSrvChg                  5p 2
+     d  ActSavLstStm                 10a
+     d  ActSavDtlItms                 7p 0
+     d  ActSavBal                    15p 2
+     d  ActSavFil                    12A
+      *
+     d dsActInfo       ds                  QUALIFIED
+     d  dsActAre                     39A
+     d  dsActChk                           LIKEDS(dsActTypCheck)
+     d                                     OVERLAY(dsActAre:1)
+      *
+     d  dsActSav                           LIKEDS(dsActTypSave)
+     d                                     OVERLAY(dsActAre:1)
+      *
+      ******************************************************************
+      * Metadata Block
+      ******************************************************************
+      *
+     d pMetaDtaErrBlk  ds
+     d  LMetaDataLen                 10i 0
+     d  BStrRunTimeV                 32A
+     d  BStrMethodNA                 32A
+     d  BStrProgID                   40A
+     d  BStrClsID                    40A
+     d  UsMajorVer                    5i 0
+     d  UsMinorVersin                 5i 0
+     d  SReadyToComt                  5i 0
+     d  SWillingToDoM                 5i 0
+     d  SRetrnErrToCl                 5i 0
+     d  SErrorCode                    5i 0
+     d  LHelpContext                 10i 0
+     d  BstrHelpStr                 256A
+      *
+      ******************************************************************
+      * Transaction Detail
+      ******************************************************************
+      *
+     D dsTxnDetails    ds
+     d  TxnSSN                        9A
+     d  TxnAcctNum                   10A
+     d  TxnItemNum                    7p 0
+     d  TxnType                       1A
+     d  TxnDate                      10A
+     d  TxnAmount                    15p 2
+      *
+      ******************************************************************
+      * Constants.
+      ******************************************************************
+      *
+     d cTxnTypIntlBal  c                   CONST('B')
+     d cTxnTypCredit   c                   CONST('C')
+     d cTxnTypDebit    c                   CONST('D')
+     d cTxnTypSvcChg   c                   CONST('S')
+     d cTxnTypOdChg    c                   CONST('O')
+     D cWBCustDbDD     C                   CONST('WBCUSTDB')
+     D cWBAcctDbDD     C                   CONST('WBACCTDB')
+     D cWBTxnDbDD      C                   CONST('WBTXNDBB')
+      *
+     C     *ENTRY        PLIST
+     c                   PARM                    pMetaDtaErrBlk
+     c                   PARM                    pCustName
+     c                   PARM                    pMaxOutAccts
+     c                   PARM                    pMoreAccts
+     c                   PARM                    pAccoutsCnt
+     c                   PARM                    dsAccts
+      *
+     C     kyCusMas1     KLIST
+     c                   KFLD                    pCustName
+      *
+      * Initialize return codes.
+      *
+     C                   Z-ADD     *ZEROS        RETCODE
+     C                   Z-ADD     *ZEROS        SERRORCODE
+     c                   z-add     *zeros        SRETRNERRTOCL
+      *
+      *Use the customer name to access the customer master file
+      *
+     C                   exsr      GetCust
+      *
+     c                   SELECT
+     c                   WHEN      *IN99          = *ON
+     c                   EXSR      UPDCUSTNOTFND
+      *
+     c                   WHEN      *IN99          = *OFF
+     c                   EXSR      GetAct
+      *
+     c                   WHEN      *IN98          = *ON
+     c                   EXSR      UPDCUSTERROR
+      *
+     c                   OTHER
+     c                   EXSR      UPDCUSTERROR
+     c                   ENDSL
+      *
+      *Load the number of datastructure occurances.
+      *
+     C                   z-add     #cnt          pAccoutsCnt
+     C                   eval      *INLR         = *ON
+      *
+      **************************************************************
+      * Get Customer Account Information.
+      **************************************************************
+      *
+     c     GETCUST       begsr
+      *
+     c                   eval      *IN99          = *OFF
+     c     kyCusMas1     setll     CusMasL1
+     c     kyCusMas1     reade     CusMasL1                             9899
+     c                   if        *IN99          = *OFF
+     C                   move      cusssn        ssn
+     C                   endif
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Get Account Information.
+      **************************************************************
+      *
+     c     GETACT        begsr
+      *
+     c     k1ActKey      klist
+     c                   kfld                    ssn
+     c                   kfld                    num
+      *
+     c     k2ActKey      klist
+     c                   kfld                    ssn
+      *
+     c                   eval      *IN99          = *OFF
+     C                   z-add     *ZEROS        #cnt
+     c     k2Actkey      setll     ActMasl2
+      *
+     c                   dow       *IN99          = *OFF
+     c     k2Actkey      reade     ActMasl2                             9899
+     c                   if        *IN99          = *OFF
+      *
+     C                   add       1             #cnt
+     C     #cnt          occur     dsAccts
+      *
+     C                   eval      dsAccts.dsActNum   = ActNum
+     C                   eval      dsAccts.dsActType  = Acttyp
+     C                   eval      dsAccts.dsActName  = ActNam
+     C                   eval      dsaccts.dsacctinfo.dsactare=actare
+      *
+     c                   select
+     c                   WHEN      Acttyp          = 'C'
+     C*****              eval      dsAccts.dsAcctInfo = dsActInfo.dsActChk
+      *
+     c                   WHEN      Acttyp          = 'S'
+     C******             eval      dsAccts.dsAcctInfo = dsActInfo.dsActSav
+     C                   OTHER
+     c                   endsl
+      *
+     c                   endif
+     c                   enddo
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account found load output fields
+      **************************************************************
+      *
+     c     LOADCUSTINFO  begsr
+      *
+     C                   z-add     *ZEROS        RetCode
+     C                   z-add     *ZEROS        SERRORCODE
+     c                   move      *BLANKS       BSTRHELPSTR
+     c                   eval      pCustPin      =CUSPIN
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account not open.
+      **************************************************************
+      *
+     c     UPDCUSTNOTOPENbegsr
+      *
+     c                   z-add     1             SRETRNERRTOCL
+     c                   MOVEL     msg(1)        BSTRHELPSTR
+     c                   z-add     5001          SERRORCODE
+     c                   z-add     5001          RETCODE
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account not found.
+      **************************************************************
+      *
+     c     UPDCUSTNOTFND begsr
+      *
+     c                   z-add     1             SRETRNERRTOCL
+     c                   MOVEL     msg(2)        BSTRHELPSTR
+     c                   z-add     5002          SERRORCODE
+     c                   z-add     5002          RETCODE
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer error.
+      **************************************************************
+      *
+     c     UPDCUSTERROR  begsr
+      *
+     c                   z-add     1             SRETRNERRTOCL
+     c                   MOVE      *BLANKS       BSTRHELPSTR
+     c                   MOVEL     msg(3)        BSTRHELPSTR
+     c                   z-add     5003          SERRORCODE
+     c                   z-add     5003          RETCODE
+      *
+     c                   endsr
+**
+Customer file not open                                                 ING
+Customer name not found
+I/O Error Customer file
+

@@ -1,0 +1,18 @@
+      *****************************************************************
+      *
+      *  FILE         - TRNDTLL1
+      *  TYPE         - LOGICAL
+      *  KEY          - K1- TRNSSN
+      *               - K2- TRNACT
+      *               - K3- TRNITM
+      *  DESCRIPTION  - WOODGROVE BANK TRANSACTION DETAIL
+      *  WRITTEN FOR  - MICROSOFT CORPORATION
+      *  DATE WRITTEN - 12/09/2005
+      *  WRITTEN BY   - RUSSELL KASBAUM
+      *
+      *****************************************************************
+      *
+     A          R RTRNDTL                   PFILE(TRNDTL)
+     A          K TRNSSN
+     A          K TRNACT
+     A          K TRNITM

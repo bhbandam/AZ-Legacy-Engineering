@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6CF9C7D4-CA2D-4EAC-BAFB-B49CF9F07E15}"
+	ProjectSection(SolutionItems) = preProject
+		..\Readme-01-VTAM-LU0-LU2-Setup.txt = ..\Readme-01-VTAM-LU0-LU2-Setup.txt
+		..\Readme-08-DFM-Configure-HIS.txt = ..\Readme-08-DFM-Configure-HIS.txt
+		..\Readme-AccountManagement-HostFileProvider-Offline.txt = ..\Readme-AccountManagement-HostFileProvider-Offline.txt
+		..\Readme-AccountManagement-HostFileProvider.txt = ..\Readme-AccountManagement-HostFileProvider.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account Management Client", "Account Management Client\Account Management Client.csproj", "{36E7B625-82A8-4012-B68E-8388442262AE}"
+EndProject
+Project("{85F619EF-C78D-42B0-BF7E-261A02623F29}") = "WoodgroveBankFiles", "WoodgroveBankFiles\WoodgroveBankFiles.hfproj", "{8353A2BA-C87E-463D-BCD1-753AD446A29D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36E7B625-82A8-4012-B68E-8388442262AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E7B625-82A8-4012-B68E-8388442262AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E7B625-82A8-4012-B68E-8388442262AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E7B625-82A8-4012-B68E-8388442262AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

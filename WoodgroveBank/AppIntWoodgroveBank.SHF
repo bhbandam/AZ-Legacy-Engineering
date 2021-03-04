@@ -1,0 +1,19 @@
+<simulatorHostConfiguration>
+  <simulators>
+    <simulator guid="76B268B7-6BCB-472A-9210-C4B45DCBD568" dataFilePath="">
+      <listeners>
+        <listener cidVersion="1" port="7516" maximumNumberOfConnections="5" name="CICS Enhanced Listener handling Woodgrove Bank requests" description="CICS ELM Link" />
+      </listeners>
+    </simulator>
+    <simulator guid="B83F5F4D-665D-42E1-AFB6-CACD3F4EDCDF" dataFilePath="">
+      <listeners>
+        <listener port="8475" maximumNumberOfConnections="0" name="DPC Listener handling Woodgrove Bank requests" description="OS400 DPC" />
+      </listeners>
+    </simulator>
+  </simulators>
+  <dataFiles>
+    <dataFile dataFilePath="%SNARoot%\..\SDK\Samples\EndToEndScenarios\WoodgroveBank\AppIntWoodgroveBank.SHD" isDefault="true" />
+    <dataFile dataFilePath="%SNARoot%\..\SDK\Samples\EndToEndScenarios\WoodgroveBank\AppIntWoodgroveBank.SHD" isDefault="false" opened="true" />
+  </dataFiles>
+  <credentials checkCredentials="False" userName="UID" password="PSWD" />
+</simulatorHostConfiguration>

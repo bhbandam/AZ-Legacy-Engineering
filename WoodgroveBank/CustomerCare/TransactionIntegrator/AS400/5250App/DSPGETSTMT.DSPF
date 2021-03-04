@@ -1,0 +1,63 @@
+     A*%%TS  SD  20060116  160401  RUSSK       REL-V5R2M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CF03
+     A***************************************************************
+     A* 35                                  SFLNXTCHG
+     A*
+     A* 35                                  SFLNXTCHG
+     A*
+     A          R SFL01                     SFL
+     A            SFACCT#       10A  O 10 10
+     A            SFITEM#        7S 0O 10 22
+     A            SFTYPE        10A  O 10 32
+     A            SFDATE        10A  O 10 44
+     A            SFAMOUNT      16A  O 10 56
+     A*
+     A          R CTL01                     SFLCTL(SFL01)
+     A                                      SFLSIZ(0006)
+     A                                      SFLPAG(0005)
+     A                                      OVERLAY
+     A  31                                  SFLDSP
+     A  30                                  SFLDSPCTL
+     A  32                                  SFLCLR
+     A  33                                  SFLEND
+     A                                  1  2DATE
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  1 29'Microsoft Corporation'
+     A                                      DSPATR(HI)
+     A                                  1 72TIME
+     A                                      DSPATR(HI)
+     A                                  2 29'Woodgrove Bank Account'
+     A                                      DSPATR(HI)
+     A                                  2  2USER
+     A                                  2 72SYSNAME
+     A                                  5  7'Customer Name:'
+     A            SCUSTNAME     30A  B  5 23DSPATR(HI)
+     A                                  9 11'Acct Num'
+     A                                      DSPATR(UL)
+     A                                  9 35'Type'
+     A                                      DSPATR(UL)
+     A                                  6  7'Max Out Accts'
+     A            MAXOUT         4S 0B  6 21DSPATR(HI)
+     A                                  6 30'More Accounts'
+     A            MOREACCT       1A  B  6 45DSPATR(HI)
+     A                                  6 50'Statement Count'
+     A            STMTCNT        4S 0B  6 66DSPATR(HI)
+     A                                  9 22'Item Num'
+     A                                      DSPATR(UL)
+     A                                  9 46'Date'
+     A                                      DSPATR(UL)
+     A                                  9 59'Amount'
+     A                                      DSPATR(UL)
+     A*
+     A***************************************************************
+     A          R SFLKEY1
+     A                                      OVERLAY
+     A                                 22  2'CF3=End'
+     A                                      DSPATR(HI)
+     A                                 23  2'V-View Transactions'
+     A                                      DSPATR(HI)
+     A            MESSAGE       75A  O 24  2
+     A  99                                  DSPATR(HI)

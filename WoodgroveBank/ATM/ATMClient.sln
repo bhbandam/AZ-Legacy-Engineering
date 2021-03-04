@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATMClient", "ATMClient.csproj", "{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}"
+EndProject
+Project("{85F619EE-C78D-42B0-BF7E-261A02623F29}") = "LU0Programs", "CICSLU0Pgms\LU0Programs.tiproj", "{21EB10CE-A8D7-4E56-A130-4DBDCEBC4957}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

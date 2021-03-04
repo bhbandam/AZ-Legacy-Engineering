@@ -1,0 +1,20 @@
+      *****************************************************************
+      *
+      *  FILE         - CUSMAS
+      *  TYPE         - PHYSICAL
+      *  KEY          - *NONE
+      *  DESCRIPTION  - WOODGROVE BANK CUSTOMER MASTER
+      *  WRITTEN FOR  - MICROSOFT CORPORATION
+      *  DATE WRITTEN - 12/09/2005
+      *
+      *****************************************************************
+      *
+     A          R RCUSMAS
+     A            CUSNAM        30A         TEXT('CUSTOMER NAME  ')
+     A            CUSSSN         9A         TEXT('CUSTOMER SSN   ')
+     A            CUSSTR        20A         TEXT('CUTOMER STREET ')
+     A            CUSCTY        10A         TEXT('CUTOMER CITY   ')
+     A            CUSSTA         4A         TEXT('CUTOMER STATE  ')
+     A            CUSZIP         5  0       TEXT('CUTOMER ZIP    ')
+     A            CUSPHO        13A         TEXT('CUTOMER PHONE  ')
+     A            CUSPIN         4A         TEXT('CUTOMER PIN    ')

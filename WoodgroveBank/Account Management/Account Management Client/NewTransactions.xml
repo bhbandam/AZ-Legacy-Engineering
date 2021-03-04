@@ -1,0 +1,41 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="TXN_SSN" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                <xs:element name="TXN_ACCT_NUM" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                <xs:element name="TXN_ITEM_NUM" type="xs:decimal" msdata:Ordinal="2" />
+                <xs:element name="TXN_TYPE" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                <xs:element name="TXN_DATE" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                <xs:element name="TXN_AMOUNT" type="xs:decimal" msdata:Ordinal="5" />
+              </xs:sequence>
+              <xs:attribute name="TableRowId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" type="xs:int" msdata:AllowDBNull="false" use="prohibited" />
+              <xs:attribute name="Position" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" type="xs:int" msdata:AllowDBNull="false" use="prohibited" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1">
+        <xs:selector xpath=".//Table" />
+        <xs:field xpath="@TableRowId" />
+      </xs:unique>
+      <xs:unique name="Constraint2">
+        <xs:selector xpath=".//Table" />
+        <xs:field xpath="@Position" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Table>
+    <TXN_SSN>111223333</TXN_SSN>
+    <TXN_ACCT_NUM>SAV1234567</TXN_ACCT_NUM>
+    <TXN_ITEM_NUM>1</TXN_ITEM_NUM>
+    <TXN_TYPE>B</TXN_TYPE>
+    <TXN_DATE>10/15/2005</TXN_DATE>
+    <TXN_AMOUNT>146229.83</TXN_AMOUNT>
+  </Table>
+</NewDataSet>

@@ -1,0 +1,31 @@
+      ******************************************************************
+      * File Definitions
+      ******************************************************************
+      *
+     FTrnDtl    if a e             DISK
+      *
+      ******************************************************************
+      * Data Definitions
+      ******************************************************************
+      *
+     c                   eval      TRNSSN        ='111223333'
+     c                   eval      TRNACT        = 'CHK4566112'
+     c                   eval      TRNITM        = 0000001
+     c                   eval      TRNTYP        = 'B'
+     c                   eval      TRNDTE        = '10/31/2005'
+     c                   eval      TRNAMT        = 41852.16
+      *
+     C                   Write     rtrndtl
+      *
+     c                   eval      TRNSSN        ='111223333'
+     c                   eval      TRNACT        = 'SAV1234567'
+     c                   eval      TRNITM        = 0000001
+     c                   eval      TRNTYP        = 'B'
+     c                   eval      TRNDTE        = '10/15/2005'
+     c                   eval      TRNAMT        = 146229.83
+      *
+     C                   Write     rtrndtl
+      *
+     C                   EVAL      *INLR         = *ON
+      *
+

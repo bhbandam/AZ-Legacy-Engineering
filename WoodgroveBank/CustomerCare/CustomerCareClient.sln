@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6A49B0E6-9EC7-45DA-805D-1D3D9194B93C}"
+	ProjectSection(SolutionItems) = preProject
+		..\Readme-CustomerCare-3270-Application.txt = ..\Readme-CustomerCare-3270-Application.txt
+		..\Readme-CustomerCare-TI-Application.txt = ..\Readme-CustomerCare-TI-Application.txt
+		..\Readme-CustomerCare-TI-AS400-Application.txt = ..\Readme-CustomerCare-TI-AS400-Application.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerCareClient", "CustomerCareClient.csproj", "{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}"
+EndProject
+Project("{85F619EE-C78D-42B0-BF7E-261A02623F29}") = "3270Programs", "3270Emulation\3270Programs.tiproj", "{A73404D0-69F3-472F-87E1-2EE95B56AF54}"
+EndProject
+Project("{85F619EE-C78D-42B0-BF7E-261A02623F29}") = "ELMLinkPrograms", "TransactionIntegrator\CICS\ELMLink\ELMLinkPrograms.tiproj", "{DF56F52D-FB2D-469A-9323-3F38DE2F4A8F}"
+EndProject
+Project("{85F619EE-C78D-42B0-BF7E-261A02623F29}") = "DPCPrograms", "TransactionIntegrator\AS400\TI_DPC_RPG\DPCPrograms.tiproj", "{EF56F52D-FB2D-469A-9323-3F38DE2F4A8F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34D39240-B9B4-4245-8B14-7FEB5F67ACE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+﻿<VisualStudioProject>
+  <TIProject>
+    <File>wtiscusi.cbl</File>
+    <File>mscmtics.cbl</File>
+    <File>wtiaddc.cbl</File>
+    <File>wtigacc.cbl</File>
+    <File>wtigbal.cbl</File>
+    <File>wtigcusi.cbl</File>
+    <File>wtigstmt.cbl</File>
+    <File>..\..\Assemblies\WoodGroveBank_ELMLink.DLL</File>
+  </TIProject></VisualStudioProject>

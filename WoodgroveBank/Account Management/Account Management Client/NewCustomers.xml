@@ -1,0 +1,55 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Table">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CUSTOMER_NAME" type="xs:string" minOccurs="0" msdata:Ordinal="0" />
+                <xs:element name="CUSTOMER_SSN" type="xs:string" minOccurs="0" msdata:Ordinal="1" />
+                <xs:element name="CUSTOMER_STREET" type="xs:string" minOccurs="0" msdata:Ordinal="2" />
+                <xs:element name="CUSTOMER_CITY" type="xs:string" minOccurs="0" msdata:Ordinal="3" />
+                <xs:element name="CUSTOMER_STATE" type="xs:string" minOccurs="0" msdata:Ordinal="4" />
+                <xs:element name="CUSTOMER_ZIP" type="xs:int" msdata:Ordinal="5" />
+                <xs:element name="CUSTOMER_PHONE" type="xs:string" minOccurs="0" msdata:Ordinal="6" />
+                <xs:element name="CUSTOMER_ACCESS_PIN" type="xs:string" minOccurs="0" msdata:Ordinal="7" />
+              </xs:sequence>
+              <xs:attribute name="TableRowId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" type="xs:int" msdata:AllowDBNull="false" use="prohibited" />
+              <xs:attribute name="Position" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" type="xs:int" msdata:AllowDBNull="false" use="prohibited" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1">
+        <xs:selector xpath=".//Table" />
+        <xs:field xpath="@TableRowId" />
+      </xs:unique>
+      <xs:unique name="Constraint2">
+        <xs:selector xpath=".//Table" />
+        <xs:field xpath="@Position" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <Table>
+    <CUSTOMER_NAME>Jeff</CUSTOMER_NAME>
+    <CUSTOMER_SSN>888997777</CUSTOMER_SSN>
+    <CUSTOMER_STREET>6026 40th Ave NE</CUSTOMER_STREET>
+    <CUSTOMER_CITY>Seattle</CUSTOMER_CITY>
+    <CUSTOMER_STATE>WA</CUSTOMER_STATE>
+    <CUSTOMER_ZIP>98115</CUSTOMER_ZIP>
+    <CUSTOMER_PHONE>4257221234</CUSTOMER_PHONE>
+    <CUSTOMER_ACCESS_PIN>1234</CUSTOMER_ACCESS_PIN>
+  </Table>
+  <Table>
+    <CUSTOMER_NAME>Rob</CUSTOMER_NAME>
+    <CUSTOMER_SSN>111223333</CUSTOMER_SSN>
+    <CUSTOMER_STREET>2121 Somewhere Pl</CUSTOMER_STREET>
+    <CUSTOMER_CITY>Portland</CUSTOMER_CITY>
+    <CUSTOMER_STATE>OR</CUSTOMER_STATE>
+    <CUSTOMER_ZIP>94556</CUSTOMER_ZIP>
+    <CUSTOMER_PHONE>5134445555</CUSTOMER_PHONE>
+    <CUSTOMER_ACCESS_PIN>5678</CUSTOMER_ACCESS_PIN>
+  </Table>
+</NewDataSet>

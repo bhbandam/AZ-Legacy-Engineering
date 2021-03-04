@@ -1,0 +1,155 @@
+      ******************************************************************
+
+         A*%%TS  SD  20060728  113558  RUSSK       REL-V5R2M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      INDARA
+     A                                      CF03
+     A                                      CF05
+     A                                      CF06
+     A                                      CF09
+     A                                      CF10
+     A                                      CF11
+     A                                      CF12
+     A                                      CF23
+     A***************************************************************
+     A*
+     A          R BLANK
+     A*
+     A          R SFL01                     SFL
+     A*%%TS  SD  20060123  153355  RUSSK       REL-V5R2M0  5722-WDS
+     A  35                                  SFLNXTCHG
+     A            SFSEL          1A  B 11  5
+     A            SFACCT#       10A  O 11 10
+     A N10                                  DSPATR(ND)
+     A            SFITEM#        7S 0O 11 22
+     A N10
+     AO 11                                  DSPATR(ND)
+     A            SFTYPE        10A  O 11 32
+     A N10                                  DSPATR(ND)
+     A            SFDATE        10A  O 11 44
+     A N10                                  DSPATR(ND)
+     A            SFAMOUNT      16A  O 11 56
+     A N10                                  DSPATR(ND)
+     A*
+     A          R CTL01                     SFLCTL(SFL01)
+     A*%%TS  SD  20060728  113558  RUSSK       REL-V5R2M0  5722-WDS
+     A                                      SFLSIZ(0006)
+     A                                      SFLPAG(0005)
+     A                                      OVERLAY
+     A  31                                  SFLDSP
+     A  30                                  SFLDSPCTL
+     A  32                                  SFLCLR
+     A  33                                  SFLEND
+     A            MODE           8A  O  3 72
+     A                                  1  2DATE
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A                                  1 29'Microsoft Corporation'
+     A                                      DSPATR(HI)
+     A                                  1 72TIME
+     A                                      DSPATR(HI)
+     A                                  2 29'Woodgrove Bank Account'
+     A                                      DSPATR(HI)
+     A                                  2  2USER
+     A                                  2 72SYSNAME
+     A            TIMODULE      10A  O  3  2DSPATR(HI)
+     A                                  5  3'Customer Name . . :'
+     A            SCUSTNAME     30A  B  5 23DSPATR(HI)
+     A                                      CHECK(LC)
+     A  10                              6  3'Address:'
+     A  10        SSTREET       20A  B  6 23DSPATR(HI)
+     A  10                                  DSPATR(PC)
+     A  10        SCITY         10A  B  7 23DSPATR(HI)
+     A  10                              7 34','
+     A  10        SSTATE         4A  B  7 36DSPATR(HI)
+     A  10        SZIPCODE       5S 0B  7 42DSPATR(HI)
+     A  10        SPHONENUM     13A  B  7 58DSPATR(HI)
+     A  10                              8  3'Social Security # :'
+     A  10        SSOCSEC#       9A  B  8 23DSPATR(HI)
+     A  10                              8 34'PIN . . . . . . . :'
+     A  10        SPIN           4A  B  8 55DSPATR(HI)
+     A  10                              7 51'Phone:'
+     A                                      DSPATR(HI)
+     A  10
+     AO 11                             10  4'Sel'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A  10
+     AO 11                             10 11'Acct Num'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A  10
+     AO 11                             10 35'Type'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A*
+     A  10N11                          10 46'Date'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A  10N11                          10 22'Item #'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A  10
+     AO 11                             10 59'Amount'
+     A                                      DSPATR(UL)
+     A                                      DSPATR(HI)
+     A*
+     A          R ACTADD
+     A*%%TS  SD  20060124  163911  RUSSK       REL-V5R2M0  5722-WDS
+     A                                      WINDOW(3 2 10 25)
+     A                                      OVERLAY
+     A                                      WDWBORDER((*COLOR BLU))
+     A                                      USRRSTDSP
+     A                                  1  5'ACCOUNT ADDITION'
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A                                  4  2'Account #'
+     A                                  5  2'SSN '
+     A                                  6  2'Type'
+     A                                  9  2'Balance'
+     A*
+     A            W1ACCT#        9A  B  4 12
+     A            W1SSN         10A  B  5 12
+     A            W1TYPE         1A  B  6 12
+     A            W1INTBAL       8  2B  9 12
+     A*
+     A          R TRNADD
+     A                                      WINDOW(3 2 10 25)
+     A                                      OVERLAY
+     A                                      WDWBORDER((*COLOR BLU))
+     A                                      USRRSTDSP
+     A                                  1  1'TRANSACTION ADDITION     '
+     A                                      DSPATR(HI)
+     A                                      DSPATR(UL)
+     A                                      COLOR(BLU)
+     A            ACCTNUM        9A  B  4 12
+     A  11        ITEM           7S 0B  5 12
+     A            TYPE           1A  B  6 12
+     A            DATE          10A  B  7 12
+     A            AMOUNT        13S 2B  8 12
+     A                                  8  2'Amount'
+     A                                  7  2'Date'
+     A                                  6  2'Type'
+     A                                  5  2'Item #'
+     A                                  4  2'Account #'
+     A*
+     A***************************************************************
+     A          R SFLKEY1
+     A*%%TS  SD  20060120  104133  RUSSK       REL-V5R2M0  5722-WDS
+     A                                      OVERLAY
+     A                                 22  1'CF3=End'
+     A                                      DSPATR(HI)
+     A  51                             22  9'CF6=Add Cust'
+     A  51                                  DSPATR(HI)
+     A  52                             22 22'CF9=Delete Cust'
+     A  52                                  DSPATR(HI)
+     A  54                             22 39'CF10=Add Acct'
+     A  54                                  DSPATR(HI)
+     A  53                             22 54'CF11=Add Tran'
+     A  53                                  DSPATR(HI)
+     A  50                             22 68'CF12=Previous'
+     A  50                                  DSPATR(HI)
+     A            ERRMSG        75A  O 24  2
+     A  99                                  DSPATR(HI)

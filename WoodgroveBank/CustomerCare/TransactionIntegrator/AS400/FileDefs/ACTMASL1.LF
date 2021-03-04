@@ -1,0 +1,15 @@
+      *****************************************************************
+      *
+      *  FILE         - ACTMASL1
+      *  TYPE         - LOGICAL
+      *  KEY          - K1 - ACTSSN
+      *               - K2 - ACTNUM
+      *  DESCRIPTION  - WOODGROVE BANK ACCOUNT MASTER
+      *  WRITTEN FOR  - MICROSOFT CORPORATION
+      *  DATE WRITTEN - 12/09/2005
+      *  WRITTEN BY   - RUSSELL KASBAUM
+      *
+      *****************************************************************
+      *
+     A          R RACTMAS                   PFILE(ACTMAS)
+     A          K ACTSSN

@@ -1,0 +1,297 @@
+      ******************************************************************
+      * File Definitions
+      ******************************************************************
+      *
+     FCusMasL1  uf a e           k DISK
+     FActMasL3  uf a e           k DISK
+     FTrnDtlL1  uf a e           k DISK
+      *
+      ******************************************************************
+      * Data Definitions
+      ******************************************************************
+     D Name            s             30A
+     D RespCode        S              9S 0 INZ(*ZEROS)
+     D RetCode         S              4  0 INZ(*ZEROS)
+     D EditNum         S              7S 0
+     D msg             S             45A   Dim(4) ctdata
+     D #cnt            S              3  0
+      *
+     D SSN             s                   LIKE(CUSSSN)
+     D Num             s                   LIKE(actnum)
+     d pRetCode        s              4  0
+     d pCustNameIn     s             30A
+     d pCustName       s             30A
+     d pActArea        s             39A
+     d pAcctType       s              1A
+     d pAcctNbrRtrn    s             10A
+     d pAcctBal        s             15p 2
+      *
+      ******************************************************************
+      * Constants.
+      ******************************************************************
+      *
+     d cTXNTYPINTLBAL  c                   CONST('B')
+     d cTXNTYPCREDIT   c                   CONST('C')
+     d cTXNTYPDEBIT    c                   CONST('D')
+     d cTXNTYPSVCCHG   c                   CONST('S')
+     d cTXNTYPODCHG    c                   CONST('O')
+     D cWBCUSTDBDD     C                   CONST('WBCUSTDB')
+     D cWBACCTDBDD     C                   CONST('WBACCTDB')
+     D cWBTXNDBDD      C                   CONST('WBTXNDBB')
+      *
+      ******************************************************************
+      * Account information muliple occurance data structure.
+      ******************************************************************
+      *
+     d dsAccts         ds                  QUALIFIED
+     d  dsActNum                     10A
+     d  dsActType                     1A
+     d  dsActName                    10A
+     d  dsAcctInfo                         LIKEDS(dsActInfo)
+      *
+      ******************************************************************
+      * Account information used to redefine the account area.
+      ******************************************************************
+      *
+     d dsActTypCheck   ds                  QUALIFIED
+     d  ActChkOdChg                   5P 2
+     d  ActChkOdLimit                 7P 2
+     d  ActChkOdLnk                  10A
+     d  ActChkLastStm                10a
+     d  ActChkDtlItem                 7P 0
+     d  ActChkBal                    15P 2
+      *
+     d dsActTypSave    ds                   QUALIFIED
+     d  ActSavIntRte                  3p 2
+     d  ActSavSrvChg                  5p 2
+     d  ActSavLstStm                 10a
+     d  ActSavDtlItms                 7p 0
+     d  ActSavBal                    15p 2
+     d* ActSavFil                    12A
+      *
+     d dsActInfo       ds                  QUALIFIED
+     d  dsActAre                     39A
+     d  dsActChk                           LIKEDS(dsActTypCheck)
+     d                                     OVERLAY(dsActAre:1)
+      *
+     d  dsActSav                           LIKEDS(dsActTypSave)
+     d                                     OVERLAY(dsActAre:1)
+      *
+      ******************************************************************
+      * Data structure - Transaction Detail
+      ******************************************************************
+      *
+     D dsTxnDetails    ds
+     d  TxnSSN                        9A
+     d  TxnAcctNum                   10A
+     d  TxnItemNum                    7p 0
+     d  TxnType                       1A
+     d  TxnDate                      10A
+     d  TxnAmount                    15p 2
+      *
+      ******************************************************************
+      *Data structure -  Metadata Block
+      ******************************************************************
+      *
+     d pMetaDtaErrBlk  ds
+     d  LMetaDataLen                 10i 0
+     d  BStrRunTimeV                 32A
+     d  BStrMethodNA                 32A
+     d  BStrProgID                   40A
+     d  BStrClsID                    40A
+     d  UsMajorVer                    5i 0
+     d  UsMinorVersin                 5i 0
+     d  SReadyToComt                  5i 0
+     d  SWillingToDoM                 5i 0
+     d  SRetrnErrToCl                 5i 0
+     d  SErrorCode                    5i 0
+     d  LHelpContext                 10i 0
+     d  BstrHelpStr                 256A
+      *
+     C     *ENTRY        PLIST
+     c                   PARM                    pMetaDtaErrBlk
+     c                   PARM                    pAcctNbrRtrn     
+     c                   PARM                    pCustName
+     c                   PARM                    pAcctType
+     c                   PARM                    pActArea
+
+      *
+      * Initialize return codes.
+      *
+     C                   Z-ADD     *ZEROS        RetCode
+     C                   Z-ADD     *ZEROS        SErrorCode
+     c                   z-add     *ZEROS        SRetrnErrToCl
+     C                   eval      dsActInfo.dsActAre=pActArea 
+      *
+      *Use the customer name to access the customer master file
+      *
+     C                   exsr      ChkCust
+      *
+     c                   SELECT
+      *
+      *Customer does not exist.
+      *
+     c                   WHEN      *IN99          = *ON
+     c                   EXSR      UpdCustNotFnd
+      *
+      *Customer exist add an account for that customer.
+      *
+     c                   WHEN      *IN99          = *OFF
+     c                   EXSR      AddAct
+      *
+      *Add transaction detail.
+      *
+     c                   EXSR      AddTrn
+     c                   ENDSL
+      *
+     C                   eval      *INLR         = *ON
+      *
+      **************************************************************
+      * Get Customer Account Information.
+      **************************************************************
+      *
+     c     ChkCust       begsr
+      *
+     c                   eval      *IN99          = *OFF
+     c     pCustName     setll     CusMasL1
+     c     pCustName     reade     CusMasL1                             9899
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Add the account master record
+      **************************************************************
+      *
+     c     AddAct        begsr
+      *
+      * Create a new account number
+      *
+     C                   exsr      CrtAct
+      *
+      *Load account master fields
+      *
+     C                   eval      ACTSSN             = CusSsn
+     C                   move      Acct#         ACTNUM
+
+      *
+     C                   eval      ACTTYP             = pAcctType 
+     C                   eval      ACTARE=dsActInfo.dsActAre 
+     C*          
+     c                   select
+     c                   WHEN      pAcctType          = 'C'
+     C                   eval      ACTTYPD            = 'Checking'     
+      *
+     c                   WHEN      pAcctType          = 'S'
+     C                   eval      ACTTYPD            = 'Savings'      
+     c                   endsl
+      *
+      *Add the account master record
+      *
+     c                   write     rActMas
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Create an account number.
+      **************************************************************
+      *
+     c     CrtAct        begsr
+      *
+     c     k1ActKey      klist
+     c                   kfld                    acct
+      *
+     c                   eval      *IN99          = *OFF
+     C                   dou       *in99         = *ON
+     C                   MOVE      *blanks       acct             10
+     C                   z-add     *zeros        acct#            10 0
+     C                   z-add     *zeros        timea            12 0
+      *
+      * Create a new account number.
+      *
+     C                   time                    timea
+     C     timea         div       100           acct#
+     C                   MOVE      acct#         acct
+      *
+      * Is it really new?
+      *
+     c                   eval      *IN99          = *OFF
+     c     k1Actkey      setll     ActMasl3
+     c     k1Actkey      reade     ActMasl3                               99
+     C                   enddo
+      *
+      * It is.
+      *
+     C                   move      acct          pAcctNbrRtrn
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Add transaction data
+      **************************************************************
+      *
+     c     AddTrn        begsr
+      *
+     C                   move      udate         trndte
+     C                   eval      TrnSsn  = CusSsn
+     C                   eval      TrnAct  = ActNum
+     C                   eval      TrnTyp  = 'B'
+     C                   eval      TrnItm  = 1
+      *
+     c                   select
+     c                   WHEN      pAcctType       = 'C'
+     C                   eval      TxnAmount=dsActInfo.dsActChk.ActChkBal
+      *
+     c                   WHEN      pAcctType       = 'S'
+     C                   eval      TxnAmount=dsActInfo.dsActSav.ActSavBal
+     c                   endsl
+      *
+      *Add the account master record
+      *
+     c                   write     rTrnDtl
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account not open.
+      **************************************************************
+      *
+     c     UpdCustNotOpenbegsr
+      *
+     c                   MOVEL     msg(1)        BSTRHELPSTR
+     c                   z-add     1             SRetrnErrToCl
+     c                   z-add     5001          SERRORCODE
+     c                   z-add     5001          RETCODE
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer account not found.
+      **************************************************************
+      *
+     c     UpdCustNotFnd begsr
+      *
+     c                   MOVEL     msg(2)        BSTRHELPSTR
+     c                   z-add     1             SRetrnErrToCl
+     c                   z-add     5002          SERRORCODE
+     c                   z-add     5002          RETCODE
+      *
+     c                   endsr
+      *
+      **************************************************************
+      * Customer error.
+      **************************************************************
+      *
+     c     UpdCustError  begsr
+      *
+     c                   MOVEL     msg(3)        BSTRHELPSTR
+     c                   z-add     1             SRetrnErrToCl
+     c                   z-add     5003          SERRORCODE
+     c                   z-add     5003          RETCODE
+      *
+     c                   endsr
+**
+Customer file not open
+Customer name not found
+I/O Error Customer file
+Account master record already exists.
+

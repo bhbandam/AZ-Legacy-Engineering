@@ -1,0 +1,229 @@
+//MYJOBNAM JOB (MYUSERID,#########,999,999),'ALLOC DATASETS  ',
+//         RESTART=ALLOC01,
+//         MSGLEVEL=(1,1),NOTIFY=&SYSUID,MSGCLASS=Q,CLASS=A
+//* The DELETE1 STEP IS COMMENTED OUT TO ENSURE THAT THE 
+//* FIRST TIME THE JOB IS RUN THERE IS NO JCL ERROR
+//* FOR SUBSEQUENT EXECUTIONS OF THIS JOB THE DELETE1
+//* STEP NEEDS TO HAVE ALL OF IT'S STATEMENT UNCOMMENTED
+//*DELETE1  EXEC PGM=IEFBR14,COND=(0,NE)
+//*WBCUSTDB  DD DSN=MYUSERID.HIS85.WGRVBANK.WBCUSTDB.VSAMINIT,
+//*             DISP=(OLD,DELETE,DELETE)
+//*WBACCTDB  DD DSN=MYUSERID.HIS85.WGRVBANK.WBACCTDB.VSAMINIT,
+//*             DISP=(OLD,DELETE,DELETE)
+//*WBTXNDB   DD DSN=MYUSERID.HIS85.WGRVBANK.WBTXNDB.VSAMINIT,
+//*             DISP=(OLD,DELETE,DELETE)
+//*
+//ALLOC01  EXEC PGM=IEFBR14,COND=(0,NE)
+//WBCUSTDB  DD DSN=MYUSERID.HIS85.WGRVBANK.WBCUSTDB.VSAMINIT,
+//             DISP=(NEW,CATLG,DELETE),
+//             SPACE=(TRK,(1,1,0)),UNIT=SYSDA,
+//             DCB=(DSORG=PS,RECFM=FB,LRECL=95,BLKSIZE=23370)
+//WBACCTDB  DD DSN=MYUSERID.HIS85.WGRVBANK.WBACCTDB.VSAMINIT,
+//             DISP=(NEW,CATLG,DELETE),
+//             SPACE=(TRK,(1,1,0)),UNIT=SYSDA,
+//             DCB=(DSORG=PS,RECFM=FB,LRECL=069,BLKSIZE=23391)
+//WBTXNDB   DD DSN=MYUSERID.HIS85.WGRVBANK.WBTXNDB.VSAMINIT,
+//             DISP=(NEW,CATLG,DELETE),
+//             SPACE=(TRK,(1,1,0)),UNIT=SYSDA,
+//             DCB=(DSORG=PS,RECFM=FB,LRECL=042,BLKSIZE=23436)
+//*
+//GENCUST  EXEC PGM=IEBDG,COND=(0,NE)
+//SYSPRINT  DD SYSOUT=*
+//SYSUT2    DD DSN=MYUSERID.HIS85.WGRVBANK.WBCUSTDB.VSAMINIT,DISP=SHR
+//SYSIN     DD *
+          DSD OUTPUT=(SYSUT2)
+          FD  NAME=REC1NAME,LENGTH=30,STARTLOC=1,                      X
+               PICTURE=30,'Kim Akers                     '
+          FD  NAME=REC1SSN,LENGTH=9,STARTLOC=31,                       X
+               PICTURE=9,'111223333'
+          FD  NAME=REC1STRT,LENGTH=20,STARTLOC=40,                     X
+               PICTURE=20,'20500 NE 98th St.   '
+          FD  NAME=REC1CITY,LENGTH=10,STARTLOC=60,                     X
+               PICTURE=10,'Redmond   '
+          FD  NAME=REC1STAT,LENGTH=4,STARTLOC=70,                      X
+               PICTURE=4,'Wa  '
+          FD  NAME=REC1ZIP,LENGTH=5,STARTLOC=74,                       X
+               PICTURE=5,'98052'
+          FD  NAME=REC1PHON,LENGTH=13,STARTLOC=79,                     X
+               PICTURE=13,'(425)881-3211'
+          FD  NAME=REC1PIN,LENGTH=4,STARTLOC=92,                       X
+               PICTURE=4,'1111'
+
+          CREATE QUANTITY=1,NAME=(REC1SSN,                             X
+               REC1NAME,                                               X
+               REC1STRT,                                               X
+               REC1CITY,                                               X
+               REC1STAT,                                               X
+               REC1ZIP,                                                X
+               REC1PHON,                                               X
+               REC1PIN)
+          END
+/*
+//GENACCT  EXEC PGM=IEBDG,COND=(0,NE)
+//SYSPRINT  DD SYSOUT=*
+//SYSUT2    DD DSN=MYUSERID.HIS85.WGRVBANK.WBACCTDB.VSAMINIT,DISP=SHR
+//SYSIN     DD *
+          DSD OUTPUT=(SYSUT2)
+          FD  NAME=REC1SSN,LENGTH=09,STARTLOC=01,                      X
+               PICTURE=9,'111223333'
+          FD  NAME=REC1ANUM,LENGTH=10,STARTLOC=10,                     X
+               PICTURE=10,'CHK4566112'
+          FD  NAME=REC1TCOD,LENGTH=1,STARTLOC=20,                      X
+               PICTURE=1,'C'
+          FD  NAME=REC1TNAM,LENGTH=10,STARTLOC=21,                     X
+               PICTURE=10,'Checking  '
+          FD  NAME=REC1ODC,LENGTH=03,STARTLOC=31,PICTURE=5,            X
+               P'02500',SIGN=+
+          FD  NAME=REC1ODL,LENGTH=04,STARTLOC=034,PICTURE=6,           X
+               P'200000',SIGN=+
+          FD  NAME=REC1LACC,LENGTH=10,STARTLOC=038,                    X
+               PICTURE=10,'SAV1234567'
+          FD  NAME=REC1LSD,LENGTH=10,STARTLOC=048,                     X
+               PICTURE=10,'10/31/2005'
+          FD  NAME=REC1ITM,LENGTH=04,STARTLOC=058,PICTURE=1,           X
+               P'1',SIGN=+
+          FD  NAME=REC1BAL,LENGTH=08,STARTLOC=062,PICTURE=7,           X
+               P'4185216',SIGN=+
+
+          CREATE QUANTITY=1,NAME=(REC1SSN,                             X
+               REC1ANUM,                                               X
+               REC1TCOD,                                               X
+               REC1TNAM,                                               X
+               REC1ODC,                                                X
+               REC1ODL,                                                X
+               REC1LACC,                                               X
+               REC1LSD,                                                X
+               REC1ITM,                                                X
+               REC1BAL)
+
+          FD  NAME=REC2SSN,LENGTH=09,STARTLOC=01,                      X
+               PICTURE=9,'111223333'
+          FD  NAME=REC2ANUM,LENGTH=10,STARTLOC=10,                     X
+               PICTURE=10,'SAV1234567'
+          FD  NAME=REC2TCOD,LENGTH=1,STARTLOC=020,                     X
+               PICTURE=1,'S'
+          FD  NAME=REC2TNAM,LENGTH=10,STARTLOC=021,                    X
+               PICTURE=10,'Savings   '
+          FD  NAME=REC2INTR,LENGTH=02,STARTLOC=031,PICTURE=3,          X
+               P'450',SIGN=+
+          FD  NAME=REC2SCHG,LENGTH=03,STARTLOC=033,PICTURE=4,          X
+               P'0500',SIGN=+
+          FD  NAME=REC2LSD,LENGTH=10,STARTLOC=036,                     X
+               PICTURE=10,'10/15/2005'
+          FD  NAME=REC2ITM,LENGTH=04,STARTLOC=046,PICTURE=1,           X
+               P'1',SIGN=+
+          FD  NAME=REC2BAL,LENGTH=08,STARTLOC=050,PICTURE=8,           X
+               P'14622983',SIGN=+
+          FD  NAME=REC2FIL,LENGTH=12,STARTLOC=058,FILL=X'40'
+
+          CREATE QUANTITY=1,NAME=(REC2SSN,                             X
+               REC2ANUM,                                               X
+               REC2TCOD,                                               X
+               REC2TNAM,                                               X
+               REC2INTR,                                               X
+               REC2SCHG,                                               X
+               REC2LSD,                                                X
+               REC2ITM,                                                X
+               REC2BAL,                                                X
+               REC2FIL)
+          END
+/*
+//GENTXN   EXEC PGM=IEBDG,COND=(0,NE)
+//SYSPRINT  DD SYSOUT=*
+//SYSUT2    DD DSN=MYUSERID.HIS85.WGRVBANK.WBTXNDB.VSAMINIT,DISP=SHR
+//SYSIN     DD *
+          DSD OUTPUT=(SYSUT2)
+          FD  NAME=REC1SSN,LENGTH=09,STARTLOC=01,                      X
+               PICTURE=9,'111223333'
+          FD  NAME=REC1ANUM,LENGTH=10,STARTLOC=10,                     X
+               PICTURE=10,'CHK4566112'
+          FD  NAME=REC1ITM,LENGTH=04,STARTLOC=020,PICTURE=1,           X
+               P'1',SIGN=+
+          FD  NAME=REC1TCOD,LENGTH=1,STARTLOC=24,                      X
+               PICTURE=1,'B'
+          FD  NAME=REC1TD,LENGTH=10,STARTLOC=025,                      X
+               PICTURE=10,'10/31/2005'
+          FD  NAME=REC1AMT,LENGTH=08,STARTLOC=035,PICTURE=7,           X
+               P'4185216',SIGN=+
+
+          CREATE QUANTITY=1,NAME=(REC1SSN,                             X
+               REC1ANUM,                                               X
+               REC1ITM,                                                X
+               REC1TCOD,                                               X
+               REC1TD,                                                 X
+               REC1AMT)
+
+          FD  NAME=REC2SSN,LENGTH=09,STARTLOC=01,                      X
+               PICTURE=9,'111223333'
+          FD  NAME=REC2ANUM,LENGTH=10,STARTLOC=10,                     X
+               PICTURE=10,'SAV1234567'
+          FD  NAME=REC2ITM,LENGTH=04,STARTLOC=020,PICTURE=1,           X
+               P'1',SIGN=+
+          FD  NAME=REC2TCOD,LENGTH=1,STARTLOC=024,                     X
+               PICTURE=1,'B'
+          FD  NAME=REC2TD,LENGTH=10,STARTLOC=025,                      X
+               PICTURE=10,'10/15/2005'
+          FD  NAME=REC2AMT,LENGTH=08,STARTLOC=035,PICTURE=8,           X
+               P'14622983',SIGN=+
+
+          CREATE QUANTITY=1,NAME=(REC2SSN,                             X
+               REC2ANUM,                                               X
+               REC2ITM,                                                X
+               REC2TCOD,                                               X
+               REC2TD,                                                 X
+               REC2AMT)
+          END
+/*
+//ALLOC02  EXEC PGM=IDCAMS,COND=(0,NE)
+//SYSPRINT DD  SYSOUT=*
+//SYSIN    DD  *
+     DELETE  MYUSERID.HIS85.WGRVBANK.WBCUSTDB CLUSTER PURGE
+     DEFINE CLUSTER(NAME(MYUSERID.HIS85.WGRVBANK.WBCUSTDB) -
+            RECORDSIZE(095 095)              -
+            INDEXED                          -
+            STORCLAS(DBCLASS)                -
+            KEYS(30 0)                       -
+            CYLINDERS(1 1))                  -
+          DATA(NAME(MYUSERID.HIS85.WGRVBANK.WBCUSTDB.DATA)) -
+          INDEX(NAME(MYUSERID.HIS85.WGRVBANK.WBCUSTDB.INDX))
+
+     DELETE  MYUSERID.HIS85.WGRVBANK.WBACCTDB CLUSTER PURGE
+     DEFINE CLUSTER(NAME(MYUSERID.HIS85.WGRVBANK.WBACCTDB) -
+            RECORDSIZE(069 069)              -
+            INDEXED                          -
+            STORCLAS(DBCLASS)                -
+            KEYS(19 0)                       -
+            CYLINDERS(1 1))                  -
+          DATA(NAME(MYUSERID.HIS85.WGRVBANK.WBACCTDB.DATA)) -
+          INDEX(NAME(MYUSERID.HIS85.WGRVBANK.WBACCTDB.INDX))
+
+     DELETE  MYUSERID.HIS85.WGRVBANK.WBTXNDB CLUSTER PURGE
+     DEFINE CLUSTER(NAME(MYUSERID.HIS85.WGRVBANK.WBTXNDB) -
+            RECORDSIZE(042 042)              -
+            INDEXED                          -
+            STORCLAS(DBCLASS)                -
+            KEYS(23 0)                       -
+            CYLINDERS(1 1))                  -
+          DATA(NAME(MYUSERID.HIS85.WGRVBANK.WBTXNDB.DATA)) -
+          INDEX(NAME(MYUSERID.HIS85.WGRVBANK.WBTXNDB.INDX))
+
+/*
+//INITVSAM EXEC PGM=IDCAMS,COND=(8,LT)
+//INPUT    DD DSN=MYUSERID.HIS85.WGRVBANK.WBCUSTDB.VSAMINIT,DISP=SHR
+//OUTPUT   DD DSN=MYUSERID.HIS85.WGRVBANK.WBCUSTDB,DISP=SHR
+//INPUT1   DD DSN=MYUSERID.HIS85.WGRVBANK.WBACCTDB.VSAMINIT,DISP=SHR
+//OUTPUT1  DD DSN=MYUSERID.HIS85.WGRVBANK.WBACCTDB,DISP=SHR
+//INPUT2   DD DSN=MYUSERID.HIS85.WGRVBANK.WBTXNDB.VSAMINIT,DISP=SHR
+//OUTPUT2  DD DSN=MYUSERID.HIS85.WGRVBANK.WBTXNDB,DISP=SHR
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+           REPRO -
+           INFILE(INPUT) -
+           OUTFILE(OUTPUT)
+           REPRO -
+           INFILE(INPUT1) -
+           OUTFILE(OUTPUT1)
+           REPRO -
+           INFILE(INPUT2) -
+           OUTFILE(OUTPUT2)
+/*

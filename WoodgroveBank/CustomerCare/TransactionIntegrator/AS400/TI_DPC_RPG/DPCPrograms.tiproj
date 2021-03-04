@@ -1,0 +1,15 @@
+﻿<VisualStudioProject>
+  <TIProject>
+    <File>wtiadda.rpg</File>
+    <File>wtiaddc.rpg</File>
+    <File>wtigacc.rpg</File>
+    <File>wtigbal.rpg</File>
+    <File>wtigcusi.rpg</File>
+    <File>wtigstmt.rpg</File>
+    <File>wtiscusi.rpg</File>    
+    <File>..\FileDefs\ATCMAS.PF</File>
+    <File>..\FileDefs\CUSMAS.PF</File>
+    <File>..\FileDefs\TRNDTL.PF</File>    
+    <File>..\..\Assemblies\WoodGroveBank_DPC.DLL</File>
+  </TIProject>
+</VisualStudioProject>

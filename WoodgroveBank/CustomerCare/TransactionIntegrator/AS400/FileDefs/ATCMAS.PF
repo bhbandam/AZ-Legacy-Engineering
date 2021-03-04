@@ -1,0 +1,17 @@
+      *****************************************************************
+      *
+      *  FILE         - ACTMAS
+      *  TYPE         - PHYSICAL
+      *  KEY          - *NONE
+      *  DESCRIPTION  - WOODGROVE BANK ACCOUNT MASTER
+      *  WRITTEN FOR  - MICROSOFT CORPORATION
+      *  DATE WRITTEN - 12/09/2005
+      *
+      *****************************************************************
+      *
+     A          R RACTMAS
+     A            ACTSSN         9A         TEXT('ACCOUNT SSN      ')
+     A            ACTNUM        10A         TEXT('ACCOUNT NUMBER   ')
+     A            ACTTYP         1A         TEXT('ACCOUNT TYPE     ')
+     A            ACTTYPD       10A         TEXT('ACCOUNT TYPE DESC')     
+     A            ACTARE        39A         TEXT('ACCOUNT AREA     ')

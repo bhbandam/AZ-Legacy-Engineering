@@ -1,0 +1,18 @@
+      *****************************************************************
+      *
+      *  FILE         - TRNDTL
+      *  TYPE         - PHYSICAL
+      *  KEY          - *NONE
+      *  DESCRIPTION  - WOODGROVE BANK TRANSACTION DETAIL
+      *  WRITTEN FOR  - MICROSOFT CORPORATION
+      *  DATE WRITTEN - 12/09/2005
+      *
+      *****************************************************************
+      *
+     A          R RTRNDTL
+     A            TRNSSN         9A         TEXT('TRANSACTION SSN   ')
+     A            TRNACT        10A         TEXT('TRANSACTION ACCT  ')
+     A            TRNITM         7S         TEXT('TRANSACTION ITEM  ')
+     A            TRNTYP         1A         TEXT('TRANSACTION TYPE  ')
+     A            TRNDTE        10A         TEXT('TRANSACTION DATE  ')
+     A            TRNAMT        13  2       TEXT('TRANSACTION AMOUNT')

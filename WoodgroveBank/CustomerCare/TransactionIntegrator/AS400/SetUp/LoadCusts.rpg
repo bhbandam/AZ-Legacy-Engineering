@@ -1,0 +1,46 @@
+      ******************************************************************
+      * File Definitions
+      ******************************************************************
+      *
+     FCusMasl1  if a e             DISK
+      *
+      ******************************************************************
+      * Data Definitions
+      ******************************************************************
+     D Name            s             30A
+     D RespCode        S              9S 0 INZ(*ZEROS)
+     D RetCode         S              4  0 INZ(*ZEROS)
+     D EditNum         S              7S 0
+     D msg             S             45A   Dim(3) ctdata
+      *
+     d pRetCode        s              4  0
+     d pCustName       s             30A
+      *
+      ******************************************************************
+      * Customer Detail
+      ******************************************************************
+      *
+     d pUserData       ds
+     d  pCustomerName                30A
+     d  pCustomerSSN                  9A
+     d  pCustomerStr                 20a
+     d  pCustomerCity                10A
+     d  pCustomerSta                  4A
+     d  pCustomerZip                  5i 0
+     d  pCustomerPhne                13
+     d  pCustomerPin                  4
+      *
+     c                   eval      CUSNAM        ='Kim Akers     '
+     c                   eval      CUSSSN        = '111223333'
+     c                   eval      CUSSTR        = '20500 NE 98th St.    '
+     c                   eval      CUSCTY        = 'Redmond     '
+     c                   eval      CUSSTA        = 'Wa'
+     c                   z-add     98052         CUSZIP
+     c                   eval      CUSPHO        = '(425)881-3211'
+     c                   eval      CUSPIN        = '1111'
+      *
+     C                   Write     rcusmas
+      *
+     C                   EVAL      *INLR         = *ON
+      *
+

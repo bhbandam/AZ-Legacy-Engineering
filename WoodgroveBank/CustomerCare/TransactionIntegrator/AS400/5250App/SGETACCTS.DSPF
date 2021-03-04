@@ -1,0 +1,63 @@
+     A*%%TS  SD  20060117  114614  RUSSK       REL-V5R2M0  5722-WDS
+     A*%%EC
+     A                                      DSPSIZ(24 80 *DS3)
+     A          R RGETACCTS
+     A*%%TS  SD  20060117  114614  RUSSK       REL-V5R2M0  5722-WDS
+     A                                  1  2USER
+     A                                  1 31'Woodgrove Bank'
+     A                                  2 27'Work With Account Master'
+     A                                  6  2'Account'
+     A                                  7  2'Number'
+     A                                      DSPATR(UL)
+     A            ITEM01         6A  B  8  2
+     A            ITEM02         6A  B  9  2
+     A            ITEM03         6A  B 10  2
+     A            ITEM04         6A  B 11  2
+     A            ITEM05         6A  B 12  2
+     A            ITEM06         6A  B 13  2
+     A                                  6 14'Account'
+     A                                  7 15'Type'
+     A                                      DSPATR(UL)
+     A            TYPE01        20A  B  8  9
+     A            TYPE02        20A  B  9  9
+     A            TYPE03        20A  B 10  9
+     A            TYPE04        20A  B 11  9
+     A            TYPE05        20A  B 12  9
+     A            TYPE06        20A  B 13  9
+     A                                  6 34'Current'
+     A                                  7 34'Balance'
+     A                                      DSPATR(UL)
+     A            CBAL01        15S 0B  9 30
+     A            CBAL02        15S 0B  8 30
+     A            CBAL03        15S 0B 10 30
+     A            CBAL04        15S 0B 11 30
+     A            CBAL05        15S 0B 12 30
+     A            CBAL06        15S 0B 13 30
+     A                                  7 47'Bearing'
+     A                                      DSPATR(UL)
+     A            IBER01         5S 0B  8 47
+     A            IBER02         5S 0B  9 47
+     A            IBER03         5S 0B 10 47
+     A            IBER04         5S 0B 11 47
+     A            IBER05         5S 0B 12 47
+     A            IBER06         5S 0B 13 47
+     A                                  6 47'---------- Interest ----------'
+     A                                  7 57'State'
+     A                                      DSPATR(UL)
+     A            ISTE01         4S 0B  8 57
+     A            ISTE02         4S 0B  9 57
+     A            ISTE03         4S 0B 10 57
+     A            ISTE04         4S 0B 11 57
+     A            ISTE05         4S 0B 12 57
+     A            ISTE06         4S 0B 13 57
+     A                                  7 69'Rate'
+     A                                      DSPATR(UL)
+     A            IRTE01        15S 0B  8 64
+     A            IRTE02        15S 0B  9 64
+     A            IRTE03        15S 0B 10 64
+     A            IRTE04        15S 0B 11 64
+     A            IRTE05        15S 0B 12 64
+     A            IRTE06        15S 0B 13 64
+     A                                  1 66DATE
+     A                                      EDTCDE(Y)
+     A                                  2 66TIME
