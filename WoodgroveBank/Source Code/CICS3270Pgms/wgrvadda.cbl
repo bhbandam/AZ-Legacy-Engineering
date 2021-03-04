@@ -1,5 +1,8 @@
       *****************************************************************
-      ** THIS PROGRAM IS A SAMPLE CICS CLIENT FOR DEMONSTRATING A 3270*
+      ** Copyright (c) Microsoft Corporation.                         *
+	  ** Licensed under the MIT license.                              *
+	  **                                                              *
+	  ** THIS PROGRAM IS A SAMPLE CICS CLIENT FOR DEMONSTRATING A 3270*
       ** APPLICATION THAT READS AND WRITE TO A VSAM DATA SET FOR      *
       ** BANKING TYPE OF INFORMATION.                                 *
       **                                                              *
