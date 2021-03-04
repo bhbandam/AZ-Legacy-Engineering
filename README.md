@@ -5,6 +5,8 @@
 
 // Licensed under the MIT license.
 
+Running the Woodgrove Bank 3270 Application different transactions   
+
 
    a) CEMT S FILE(WBCUSTDB,WBACCTDB,WBTXNDB) OPE ENA       
 
