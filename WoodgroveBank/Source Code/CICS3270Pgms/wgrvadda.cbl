@@ -7,7 +7,7 @@
       ** BANKING TYPE OF INFORMATION.                                 *
       **                                                              *
       ** THE INPUT TO THIS CICS PROGRAM IS PROVIDED THROUGH A BMS MAP *
-      ** THAT IS NAMED WGRVMAP.                                       *
+      ** THAT IS NAMED WGRVMAP. Testing DevOps                        *
       *****************************************************************
        IDENTIFICATION DIVISION.
        PROGRAM-ID. WGRVADDA.
